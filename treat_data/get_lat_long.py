@@ -5,10 +5,15 @@ You may need to manually add some countries to the coordinates/feature dictionar
 """
 from geopy.geocoders import Nominatim
 import pandas as pd
+import os
 import pickle
 import requests
+import time
 
 GEOLOCATOR = Nominatim(user_agent="geo_lookup")
+
+# Names used by the World Bank that the geocoder does not find: search for another name instead
+BUSCA_ALTERNATIVA = {"EU27+": "EU"}
 
 def get_lat_long(locations):
     """
@@ -21,15 +26,22 @@ def get_lat_long(locations):
         dict: A dictionary with location names as keys and their corresponding latitude and longitude as values.
     """
 
-    # Load the coordinates dictionary if it exists
-    with open('data/processed/coords.pkl', 'rb') as f:
-        coords = pickle.load(f)
+    # Load the coordinates dictionary if it exists (it is a local cache, not versioned)
+    if os.path.exists('data/processed/coords.pkl'):
+        with open('data/processed/coords.pkl', 'rb') as f:
+            coords = pickle.load(f)
+    else:
+        coords = {}
 
     # Check if the coordinates for the locations are already in the dictionary
     missing_coords = [place for place in locations if place not in coords]
 
     if len(missing_coords):
-        new_coords = {place: GEOLOCATOR.geocode(place) for place in missing_coords}
+        print("Searching coordinates for:", missing_coords)
+        new_coords = {}
+        for place in missing_coords:
+            new_coords[place] = GEOLOCATOR.geocode(BUSCA_ALTERNATIVA.get(place, place))
+            time.sleep(1.1)  # Nominatim usage policy: at most 1 request per second
 
         coords.update(new_coords)
 
@@ -155,14 +167,15 @@ def update_location_data():
         mvc.to_csv("data/processed/mvc_credits_info.csv", sep=";", decimal=",", index=False)
         
 
-    data_wb = pd.read_csv("data\processed\wb_info.csv",sep=";",decimal=",")
+    data_wb = pd.read_csv("data/processed/wb_info.csv",sep=";",decimal=",")
     mvc = pd.read_csv("data/processed/mvc_credits_info.csv",sep=";",decimal=",")
     locations = set(data_wb["Jurisdiction covered"].unique()).union(set(mvc["Country"].unique()))
 
     update_coords(locations)
-    update_geojson(locations)
+    # update_geojson(locations)  # the GeoJSON cache is not used by the current pages
 
     print("Data updated successfully!")
 
 
-# %%
+if __name__ == "__main__":
+    update_location_data()

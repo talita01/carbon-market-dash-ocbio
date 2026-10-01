@@ -1,11 +1,23 @@
 #%%
 """
 This script reads the data from the World Bank excel file and treats it to be used in the project.
-The data is about carbon taxes and includes information about the tax, the price, the revenue and the emissions."""
+The data is about carbon taxes and ETS and includes information about the instrument, the price, the revenue and the emissions.
 
-import pandas as pd 
-import numpy as np 
+Layout notes (World Bank file, edition May 2026):
+- Header rows are located by their first cell, not by a fixed row number, because the sheets
+  carry a variable number of note rows above the table.
+- "Status" no longer carries the start year and "Type" no longer carries the scope (national/subnational).
+  Start Year and Subtype are taken from the previous processed table (data/processed/wb_info.csv)
+  when the instrument already existed there; for new instruments they are derived (see below)
+  and printed at the end of the run so they can be reviewed.
+- "Share of jurisdiction emissions covered" is a text such as
+  "73% of jurisdiction emissions, 0.0098% of global emissions" and is split in two numeric columns.
+"""
+
+import pandas as pd
+import numpy as np
 import re
+import os
 
 meses = {
     "January": "Janeiro",
@@ -22,16 +34,54 @@ meses = {
     "December": "Dezembro"
 }
 
+# Subnational instruments that are cities (the file only gives the jurisdiction name)
+CIDADES = {"Minneapolis", "Mexico City"}
+# Jurisdictions whose ID carries a suffix but that are national
+NACIONAIS_COM_SUFIXO = {"Taiwan, China"}
+
+
+def _norm(name):
+    """Normalise instrument names: the World Bank changes capitalisation and spaces between editions."""
+    return re.sub(r"\s+", " ", str(name).replace("\xa0", " ")).strip().lower()
+
+
+def _read_sheet(file_path, sheet_name, first_col):
+    """Read a sheet whose header row starts with `first_col`."""
+    raw = pd.read_excel(file_path, sheet_name=sheet_name, header=None)
+    header_row = raw.index[raw.iloc[:, 0].astype(str).str.strip() == first_col][0]
+    df = pd.read_excel(file_path, sheet_name=sheet_name, header=header_row)
+    df.columns = [int(c) if isinstance(c, float) and c == int(c) else c for c in df.columns]
+    return df
+
+
+def _first_positive_year(df):
+    """First year (column) in which each row has a value above zero."""
+    def first(row):
+        v = pd.to_numeric(row, errors="coerce")
+        v = v[v > 0]
+        return int(v.index[0]) if len(v) else np.nan
+    year_cols = [c for c in df.columns if isinstance(c, int)]
+    return df[year_cols].apply(first, axis=1)
+
+
+def _parse_share(text, kind):
+    """Extract a share (as fraction) from "73% of jurisdiction emissions, 0.0098% of global emissions"."""
+    if isinstance(text, (int, float)):
+        return text if kind == "jurisdiction" else np.nan
+    match = re.search(rf"([\d.,]+)\s*%\s*of\s*{kind}\s*emissions", str(text))
+    return float(match.group(1).replace(",", "")) / 100 if match else np.nan
+
+
 def update_wb(file_path='data/raw/dados_wb.xlsx',
               save_path="data/processed",
-              countries_info_data="data/raw/extra_country_info.csv"):
+              countries_info_data="data/extra_country_info.csv"):
     """
     This function reads the data from the World Bank excel file and treats it to be used in the project.
 
-    Args:   
+    Args:
         file_path (str): The path to the excel file.
         save_path (str): The path to save the processed data.
-        countries_info_data (str): The path to the csv file with additional country information. (Expected columns: Jurisdiction;Income Group;Region)
+        countries_info_data (str): Optional path to a csv file with additional country information. (Expected columns: Jurisdiction;Income Group;Region)
     """
     #get update info
     last_update = pd.read_excel(file_path, nrows=1, usecols=[0]).columns[0]\
@@ -40,20 +90,29 @@ def update_wb(file_path='data/raw/dados_wb.xlsx',
     mes_traducao = [(k,v) for k,v in meses.items() if k in last_update][0]
     last_update = last_update.replace(mes_traducao[0], mes_traducao[1])
 
-    last_update_db = pd.read_csv('../data/update_info.csv',index_col=0)
+    last_update_db = pd.read_csv('data/update_info.csv',index_col=0)
     last_update_db.loc['WB'] = last_update
 
+    #previous table (used to keep start year and scope of instruments that already existed)
+    old_path = f"{save_path}/wb_info.csv"
+    if os.path.exists(old_path):
+        old = pd.read_csv(old_path, sep=";", decimal=",")
+        old["key"] = old["Instrument name"].map(_norm)
+        old = old.drop_duplicates("key").set_index("key")
+    else:
+        old = pd.DataFrame(columns=["Start Year", "End Year", "Subtype", "Region", "Income group", "Jurisdiction covered"])
+
     #read data
-    df_info = pd.read_excel(file_path,
-                    sheet_name='Compliance_Gen Info',
-                    header=1)
+    df_info = _read_sheet(file_path, 'Compliance_Gen Info', 'Unique ID')
 
     df_info = df_info.replace(" ", np.nan)\
             .dropna(axis=0,how='all')\
             .dropna(axis=1, how='all')
-    
-    #country name
+
+    #names
+    df_info["Instrument name"] = df_info["Instrument name"].str.replace("\xa0", " ").str.strip()
     df_info["Jurisdiction covered"] = df_info["Jurisdiction covered"].str.strip()
+    df_info["key"] = df_info["Instrument name"].map(_norm)
 
     # Sectors Covered
     # Replace "Yes", "No", and "In principle" with 1, 0, and 0 respectively
@@ -70,18 +129,14 @@ def update_wb(file_path='data/raw/dados_wb.xlsx',
                         'LULUCF']].replace({"Yes": 1, 'No': 0, "In principle": 0})\
                             .apply(lambda row: ', '.join(row.index[row == 1].tolist()), axis=1)
 
+    #shares of emissions covered (text -> two numeric columns)
+    shares = df_info["Share of jurisdiction emissions covered"]
+    df_info["Share of global emissions covered"] = shares.map(lambda x: _parse_share(x, "global"))
+    df_info["Share of jurisdiction emissions covered"] = shares.map(lambda x: _parse_share(x, "jurisdiction"))
+    unparsed = df_info[shares.notnull() & df_info["Share of global emissions covered"].isnull()]["Instrument name"].values
+    print("Share of emissions covered not parsed:", unparsed, '\n')
 
-    #split status and dates
-    df_info["Start Year"] = df_info["Status"]\
-                                .apply(lambda x: int(re.search(r'(\d{4})', x).group(1)) 
-                                    if re.search(r'(\d{4})', x) 
-                                    else None)
-
-    df_info["End Year"] = df_info["Status"]\
-                            .apply(lambda x: int(re.search(r'Abolished.*?(\d{4})', x).group(1)) 
-                                if re.search(r'Abolished.*?(\d{4})', x) 
-                                else None)
-    
+    #status
     def extract_status(x):
             if "Abolished" in x:
                 return "Abolished"
@@ -90,77 +145,130 @@ def update_wb(file_path='data/raw/dados_wb.xlsx',
 
     df_info["Status"] = df_info["Status"].apply(extract_status)
 
-    #get region and income group data from price sheet
-    df_price = pd.read_excel(file_path,
-                    sheet_name='Compliance_Price',
-                    header=1)\
-                .replace("-",np.nan)
+    #price sheet (also gives region and income group)
+    df_price = _read_sheet(file_path, 'Compliance_Price', 'Unique ID').replace("-",np.nan)
+    df_price["key"] = df_price["Name of the initiative"].str.replace("\xa0", " ").map(_norm)
 
-    #additional info
-    info = pd.read_csv(countries_info_data,sep=";",
-                    index_col=0)
+    #series (price, revenue, emissions) -- built before the start year, which is derived from them
+    df_revenue = _read_sheet(file_path, 'Compliance_Revenue', 'Instrument name')\
+                    .replace("Not available",np.nan)
+    df_emissions = _read_sheet(file_path, 'Compliance_Emissions', 'Name of the initiative')\
+                    .dropna(how='all')
+    df_emissions["key"] = df_emissions["Name of the initiative"].map(_norm)
 
-    #create mapping dicts
-    regions_map = df_price.set_index("Jurisdiction Covered")["Region"].to_dict()
-    regions_map.update(info['Region'].dropna().to_dict())
+    #start year: previous table first, then first year with coverage, then first year with price
+    start_emissions = df_emissions.set_index("key").pipe(_first_positive_year)
+    start_price = df_price.set_index("key").pipe(_first_positive_year)
+    derived_start = df_info["key"].map(start_emissions).fillna(df_info["key"].map(start_price))
+    # for instruments not implemented the year is the one the previous table had (year they entered
+    # consideration/development); the file no longer gives it, so new ones stay without year
+    df_info["Start Year"] = df_info["key"].map(old["Start Year"])
+    started = df_info["Status"].isin(["Implemented", "Abolished"])
+    df_info.loc[started, "Start Year"] = df_info.loc[started, "Start Year"].fillna(derived_start[started])
+    df_info["End Year"] = df_info["key"].map(old["End Year"])
 
-    income_g = df_price.set_index("Jurisdiction Covered")["Income group"].to_dict()
-    income_g.update(info['Income Group'].dropna().to_dict())
+    new_start = df_info[df_info["Start Year"].notnull() & ~df_info["key"].isin(old.index)]
+    print("Start Year derived from the data (new instruments):")
+    print(new_start[["Instrument name", "Start Year"]].to_string(index=False), '\n')
+    print("Implemented/Abolished without Start Year:",
+          df_info[df_info["Status"].isin(["Implemented", "Abolished"]) & df_info["Start Year"].isnull()]["Instrument name"].values, '\n')
 
-    #apply mapping
-    df_info["Region"] = df_info["Jurisdiction covered"].map(regions_map)
-    df_info["Income group"] = df_info["Jurisdiction covered"].map(income_g)
+    #share of global emissions covered: the text column in Gen Info is the gross share (it ignores the overlap
+    #between instruments); the Emissions sheet accounts for overlaps, so its last year is used for implemented instruments
+    last_em_year = max(c for c in df_emissions.columns if isinstance(c, int))
+    share_net = df_emissions.set_index("key")[last_em_year]
+    net = df_info["key"].map(share_net)
+    implemented = df_info["Status"] == "Implemented"
+    no_net = df_info[implemented & net.isnull()]["Instrument name"].values
+    print(f"Implemented without {last_em_year} share in the Emissions sheet (gross share from Gen Info kept):", no_net, '\n')
+    df_info["Share of global emissions covered"] = np.where(implemented, net.fillna(df_info["Share of global emissions covered"]), np.nan)
+    # one instrument can be listed under several jurisdictions (EU ETS: EU27+, Iceland, Liechtenstein, Norway) with the
+    # same share; keep it only in the first row, otherwise the pages that sum the column count it several times
+    repeated = df_info["Instrument name"].duplicated()
+    print("Rows of repeated instruments (global share kept only in the first):",
+          df_info[repeated][["Instrument name", "Jurisdiction covered"]].values.tolist(), '\n')
+    df_info.loc[repeated, "Share of global emissions covered"] = np.nan
+
+    #region and income group
+    regions_map = df_price.set_index("key")["Region"].to_dict()
+    income_g = df_price.set_index("key")["Income group"].to_dict()
+    revenue_income = df_revenue.set_index(df_revenue["Instrument name"].map(_norm))["Country income group"].to_dict()
+
+    df_info["Region"] = df_info["key"].map(regions_map).fillna(df_info["key"].map(old["Region"]))
+    df_info["Income group"] = df_info["key"].map(income_g)\
+                                .fillna(df_info["key"].map(revenue_income))\
+                                .fillna(df_info["key"].map(old["Income group"]))
+
+    #same jurisdiction, other instruments (e.g. "Albania ETS" takes the data of "Albania carbon tax"), then the previous table
+    for col in ["Region", "Income group"]:
+        by_jurisdiction = df_info.dropna(subset=[col]).drop_duplicates("Jurisdiction covered").set_index("Jurisdiction covered")[col]
+        old_by_jurisdiction = old.dropna(subset=[col]).drop_duplicates("Jurisdiction covered").set_index("Jurisdiction covered")[col] \
+                                if "Jurisdiction covered" in old.columns else pd.Series(dtype=object)
+        df_info[col] = df_info[col].fillna(df_info["Jurisdiction covered"].map(by_jurisdiction))\
+                                   .fillna(df_info["Jurisdiction covered"].map(old_by_jurisdiction))
+
+    #additional info (optional): overrides region and income group by jurisdiction
+    if os.path.exists(countries_info_data):
+        info = pd.read_csv(countries_info_data,sep=";", index_col=0)
+        df_info["Region"] = df_info["Jurisdiction covered"].map(info['Region'].dropna().to_dict()).fillna(df_info["Region"])
+        df_info["Income group"] = df_info["Jurisdiction covered"].map(info['Income Group'].dropna().to_dict()).fillna(df_info["Income group"])
+
+    #same region, one spelling
+    df_info["Region"] = df_info["Region"].replace({"Latin America & the Caribbean": "Latin America & Caribbean"})
 
     #check for missing data
     print("Missing Region data:",df_info[df_info["Region"].isnull()]["Jurisdiction covered"].values,'\n')
     print("Missing Income Group data:",df_info[df_info["Income group"].isnull()]["Jurisdiction covered"].values,'\n')
 
-    df_info = df_info.drop_duplicates()
+    df_info = df_info.drop_duplicates(subset="Unique ID")
 
-    #treat type and subtype
-    df_info["Subtype"] = df_info["Type"].str.replace("Carbon tax","").str.replace("ETS","").str.strip()
-    df_info["Subtype"] = df_info["Subtype"].str.replace(" or ","/").str.strip()
+    #type and subtype
+    def derive_subtype(row):
+        id_parts = row["Unique ID"].split("_")
+        if id_parts[0] == "UND":
+            return "Nacional Indeciso"
+        if row["Unique ID"].startswith("ETS_EU"):
+            return "Regional"
+        if len(id_parts) <= 2 or row["Jurisdiction covered"] in NACIONAIS_COM_SUFIXO:
+            return "Nacional"
+        return "Subnacional - Município" if row["Jurisdiction covered"] in CIDADES else "Subnacional - Estado/Província"
+
+    df_info["Subtype"] = df_info["key"].map(old["Subtype"])
+    derived_subtype = df_info.apply(derive_subtype, axis=1)
+    new_subtype = df_info[df_info["Subtype"].isnull()]
+    print("Subtype derived from the instrument ID (new instruments, please review):")
+    print(pd.DataFrame({"Instrument name": new_subtype["Instrument name"], "Subtype": derived_subtype[new_subtype.index]}).to_string(index=False), '\n')
+    df_info["Subtype"] = df_info["Subtype"].fillna(derived_subtype)
+
     df_info["Type"] = df_info["Type"].apply(lambda x: "Carbon tax" if "Carbon tax" in x else "ETS")
-    
+
     #checks for missing data
-    missing = df_price[~df_price['Jurisdiction Covered'].isin(df_info["Jurisdiction covered"])]['Jurisdiction Covered']
+    missing = df_price[~df_price['key'].isin(df_info["key"])]['Name of the initiative']
     print("Price data missing gen. information:",missing.values,'\n')
 
     #remove NAs
-    df_price.dropna(subset=df_price.columns[3:],how="all",inplace=True)
+    year_cols = [c for c in df_price.columns if isinstance(c, int)]
+    df_price = df_price.dropna(subset=year_cols, how="all")
 
-    #DUVDA: COMO SELECIONAR O PRECO PARA OS QUE TEM MAIS DE UM TIPO E NAO SO 'SINGLE PRICE'
-    # df_price[df_price["Jurisdiction Covered"].duplicated(keep=False)].to_csv("duplicated_price.csv",decimal=",",sep=";")
-    df_price = df_price[~df_price["Name of the initiative"].duplicated(keep=False)]
-
-    #remove columns in df_info
-    df_price.drop(["Region","Income group","Metric","Start date","Jurisdiction Covered","Price rate label"],inplace=True, axis=1)
-    df_price = df_price.set_index(["Name of the initiative","Instrument Type"])
+    #instruments with the same name would be ambiguous in the series
+    duplicated_price = df_price["Name of the initiative"].duplicated(keep=False)
+    print("Price rows dropped (duplicated name):", df_price[duplicated_price]["Name of the initiative"].values, '\n')
+    df_price = df_price[~duplicated_price]
 
     #prepare data for time series dataframe
+    df_price = df_price.set_index(["Name of the initiative","Instrument Type"])[year_cols]
     df_price.columns.name="Year"
     df_price = df_price.stack().to_frame("Price")
 
     #REVENUE
-    df_revenue = pd.read_excel(file_path,
-                    sheet_name='Compliance_Revenue',
-                    header=1)
-
-    df_revenue = df_revenue.replace("Not available",np.nan)
-
-    df_revenue = df_revenue.drop(['Jurisdiction Covered','Metric',],axis=1)
-    df_revenue = df_revenue.set_index(["Name of the initiative",'Instrument Type'])
+    df_revenue = df_revenue.rename(columns={"Instrument name": "Name of the initiative", "Type": "Instrument Type"})
+    rev_years = [c for c in df_revenue.columns if isinstance(c, int)]
+    df_revenue = df_revenue.set_index(["Name of the initiative",'Instrument Type'])[rev_years]
 
     df_revenue.columns.name="Year"
     df_revenue = df_revenue.stack().to_frame("Revenue")
 
     #EMISSIONS
-    df_emissions = pd.read_excel(file_path,
-                    sheet_name='Compliance_Emissions',
-                    header=2)
-
-    df_emissions = df_emissions.dropna(how='all')
-
     instrument_dict = df_price.reset_index(['Instrument Type','Year'])['Instrument Type'].to_dict()
     instrument_dict.update(df_revenue.reset_index(['Instrument Type','Year'])['Instrument Type'].to_dict())
 
@@ -170,30 +278,28 @@ def update_wb(file_path='data/raw/dados_wb.xlsx',
     for i, v in df_emissions[df_emissions['Instrument Type'].isnull()].iterrows():
         if "ETS" in v['Name of the initiative']:
             df_emissions.at[i,'Instrument Type'] = "ETS"
-        elif "Carbon tax" in v['Name of the initiative']:   
+        elif "carbon tax" in v['Name of the initiative'].lower():
             df_emissions.at[i,'Instrument Type'] = "Carbon tax"
-        else:   
+        else:
             print(v['Name of the initiative'],"is missing instrument type")
 
-    df_emissions = df_emissions.set_index(["Name of the initiative",'Instrument Type'])
-    df_emissions = df_emissions.drop("Total")
+    em_years = [c for c in df_emissions.columns if isinstance(c, int)]
+    df_emissions = df_emissions.set_index(["Name of the initiative",'Instrument Type'])[em_years]
+    df_emissions = df_emissions.drop("Total", errors="ignore")
 
     df_emissions.columns.name="Year"
     df_emissions = df_emissions.stack().to_frame("Emissions")
 
     series_wb = pd.concat([df_price,df_revenue,df_emissions],axis=1).reset_index()
-    
-    #Traducoes 
+
+    not_in_info = set(series_wb["Name of the initiative"].map(_norm)) - set(df_info["key"])
+    print("Series names without gen. information:", sorted(not_in_info), '\n')
+
+    #Traducoes
     df_info["Status"] = df_info["Status"].map({"Implemented":"Implementado",
                                             "Under consideration":"Em consideração",
                                             "Under development":"Em desenvolvimento",
                                             "Abolished":"Extinto"})
-
-    df_info["Subtype"] = df_info["Subtype"].map({"National":"Nacional",
-                                                    "Regional":"Regional",
-                                                    "Subnational - State/Province":"Subnacional - Estado/Província",
-                                                    "Subnational - City":"Subnacional - Município",
-                                                    "National Undecided":"Nacional Indeciso"})
 
     df_info['Type'] = df_info['Type'].map({"Carbon tax":"Taxas de Carbono",
                                             "ETS":"Sistema  de comércio de licenças de emissão (ETS)"})
@@ -202,6 +308,7 @@ def update_wb(file_path='data/raw/dados_wb.xlsx',
     series_wb['Instrument Type'] = series_wb['Instrument Type'].map({"Carbon tax":"Taxas de Carbono",
                                                                      "ETS":"ETS"})
 
+    df_info = df_info.drop(columns="key")
 
     #concat and save time series
     series_wb.to_csv(f"{save_path}/wb_time_series.csv",

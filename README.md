@@ -6,7 +6,7 @@ Este repositório contém todos os códigos, dados e instruções necessários p
 
 ## Como rodar o dashboard
 
-1. Certifique-se de que tem os requisitos instalados:
+1. Use **Python 3.12 ou 3.13** (a página do mercado voluntário usa sintaxe que não existe no 3.11) e instale os requisitos:
 
    ```bash
    pip install -r requirements.txt
@@ -40,22 +40,26 @@ utils/                  # Funções auxiliares utilizadas no dashboard
 
 ## Como atualizar os dados
 
-### Word Bank
+Rode todos os scripts a partir da **raiz do repositório** (`python treat_data/...`).
 
-1. Baixe a base no site: [World Bank Dashboard](https://carbonpricingdashboard.worldbank.org/about#download-data)
+### World Bank
+
+1. Baixe a base no site: [World Bank Carbon Pricing Dashboard](https://carbonpricingdashboard.worldbank.org/about-us#download-data) (link "Download Data in Excel")
 2. Substitua o arquivo em: `data/raw/dados_wb.xlsx`
 3. Execute:
 
    ```bash
    python treat_data/treat_wb.py
    ```
+
+   O script imprime o que precisa de revisão: anos de início e alcance (nacional/subnacional) derivados para instrumentos novos, e regiões ou faixas de renda que faltarem. Para esses últimos, acrescente a jurisdição em `data/extra_country_info.csv` (colunas `Jurisdiction;Income Group;Region`) e rode de novo.
 4. (Caso não vá atualizar o MCV) Rode também:
 
    ```bash
    python treat_data/get_lat_long.py
    ```
 
-   Isso atualiza os dados de latitude e longitude para visualização no mapa.
+   Isso atualiza os dados de latitude e longitude para visualização no mapa. As coordenadas já buscadas ficam em um cache local (`data/processed/coords.pkl`, não versionado); sem ele, o script busca todos os lugares e leva alguns minutos (1 consulta por segundo).
 
 ---
 
@@ -66,7 +70,7 @@ utils/                  # Funções auxiliares utilizadas no dashboard
 3. Execute:
 
    ```bash
-   python treat_data/treattreat_mvc_wb.py
+   python treat_data/treat_mvc.py
    ```
 4. Rode:
 
@@ -78,15 +82,20 @@ utils/                  # Funções auxiliares utilizadas no dashboard
 
 ### CBIO (Créditos de Descarbonização)
 
-1. Baixe os arquivos **Aposentadoria**, **Negociações** e **Estoque** no site da [B3](https://www.b3.com.br/pt_br/b3/sustentabilidade/produtos-e-servicos-esg/credito-de-descarbonizacao-cbio/cbio-consultas/)
-2. Copie os dados para os arquivos `.csv` correspondentes em `data/raw/cbio/`
+1. Baixe as séries **Aposentadoria**, **Estoque** e **Negociações** da [B3](https://www.b3.com.br/pt_br/b3/sustentabilidade/produtos-e-servicos-esg/credito-de-descarbonizacao-cbio/cbio-consultas/) para `data/raw/cbio/`:
 
-   > ⚠️ Se colar entradas duplicadas por data, o script manterá apenas a **primeira** ocorrência.
-3. Execute:
+   ```bash
+   python treat_data/baixar_cbio.py
+   ```
+
+   O script baixa do ano da última data já processada até o ano atual (a API da B3 entrega um ano por vez). Também é possível baixar manualmente no site e salvar os `.csv` com os mesmos nomes.
+2. Execute:
 
    ```bash
    python treat_data/treat_cbio.py
    ```
+
+   > ⚠️ Se uma data aparecer duas vezes, o script mantém a **última** ocorrência (o dado novo substitui o antigo).
 
 ---
 

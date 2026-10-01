@@ -24,11 +24,11 @@ def update_mvc(file_path='data/raw/dados_mvc.xlsx'):
     last_update = pd.read_excel(file_path, nrows=1, usecols=[0]).columns[0]\
                         .split(" - ")[1].strip()[1:8]
     
-    data_obj = datetime.datetime.strptime(last_update, '%Y-%m')
+    data_obj = datetime.strptime(last_update, '%Y-%m')
     mes_traduzido = meses[data_obj.strftime('%B')]
     last_update = f"{mes_traduzido}, {data_obj.year}"
 
-    last_update_db = pd.read_csv('../data/update_info.csv',index_col=0)
+    last_update_db = pd.read_csv('data/update_info.csv',index_col=0)
     last_update_db.loc['MVC'] = last_update
 
     df = pd.read_excel(file_path,
@@ -69,6 +69,7 @@ def update_mvc(file_path='data/raw/dados_mvc.xlsx'):
                 "Agriculture": "Agricultura",
                 "Carbon Capture & Storage": "Captura e Armazenamento de Carbono",
                 "Chemical Processes": "Processos Químicos",
+                "Engineered Removal": "Remoção Engenheirada",
                 "Forestry & Land Use": "Florestas e Uso da Terra",
                 "Household & Community": "Domicílios e Comunidades",
                 "Industrial & Commercial": "Industrial e Comercial",

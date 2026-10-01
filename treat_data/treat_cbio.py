@@ -27,7 +27,7 @@ def update_cbio(aposentadoria,estoque,negociacoes):
     cbio_new = aposentadoria.join(estoque,how="outer")
 
     cbio = pd.concat([cbio,cbio_new]).sort_index()
-    cbio = cbio[~cbio.index.duplicated(keep='first')]
+    cbio = cbio[~cbio.index.duplicated(keep='last')]
     print("CBIO NEW LAST DATE:",cbio.index.max())
 
     #Negociacoes
@@ -46,7 +46,7 @@ def update_cbio(aposentadoria,estoque,negociacoes):
                                 .sort_index()
     
     negociacoes = pd.concat([negociacoes_old,negociacoes]).sort_index()
-    negociacoes = negociacoes[~negociacoes.index.duplicated(keep='first')]
+    negociacoes = negociacoes[~negociacoes.index.duplicated(keep='last')]
     print("NEGOCIACOES NEW LAST DATE:",negociacoes.index.max())
     
     negociacoes.to_csv("data/processed/cbio_negociacoes.csv",sep=";",decimal=",")
