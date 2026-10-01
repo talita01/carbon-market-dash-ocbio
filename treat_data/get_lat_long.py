@@ -12,8 +12,21 @@ import time
 
 GEOLOCATOR = Nominatim(user_agent="geo_lookup")
 
-# Names used by the World Bank that the geocoder does not find: search for another name instead
-BUSCA_ALTERNATIVA = {"EU27+": "EU"}
+# Names used by the World Bank that the geocoder does not find or finds in the wrong place: search for another name instead.
+# "Taiwan, China" was found in Fujian (mainland China) and "Washington" in Washington DC (the instrument is the state's);
+# if a name here is already in the local cache with the wrong place, delete it from coords.pkl so it is searched again.
+BUSCA_ALTERNATIVA = {"EU27+": "EU", "Taiwan, China": "Taiwan", "Washington": "Washington State"}
+
+# Jurisdictions that are not a single place: fixed point, not geocoded.
+# RGGI: simple mean of the coordinates of the 10 participating states, as listed by the World Bank file
+# (data/raw/dados_wb.xlsx, edition May 2026, sheet Compliance_Gen Info, RGGI, columns Description and Recent developments:
+# Connecticut, Delaware, Maine, Maryland, Massachusetts, New Hampshire, New Jersey, New York, Rhode Island and Vermont;
+# Virginia left in December 2023 and Pennsylvania withdrew in November 2025). Coordinates of each state from
+# Nominatim/OpenStreetMap ("<state>, United States", featuretype="state"), searched on 01/10/2026:
+# CT (41.6500, -72.7342), DE (38.6920, -75.4013), ME (45.7091, -68.8590), MD (39.5162, -76.9382),
+# MA (42.3789, -72.0324), NH (43.4849, -71.6554), NJ (40.0757, -74.4042), NY (43.1562, -75.8450),
+# RI (41.7962, -71.5992), VT (44.5991, -72.5003).
+COORDENADAS_FIXAS = {"RGGI": (42.1058, -73.1969)}
 
 def get_lat_long(locations):
     """
@@ -155,10 +168,17 @@ def update_location_data():
     def update_coords(locations):
 
         # Add latitude column using coords dictionary
-        coords = get_lat_long(locations)
+        coords = get_lat_long(locations - set(COORDENADAS_FIXAS))
 
-        data_wb['lat'] = data_wb['Jurisdiction covered'].map(lambda x: coords[x].latitude if coords[x] else None)
-        data_wb['lon'] = data_wb['Jurisdiction covered'].map(lambda x: coords[x].longitude if coords[x] else None)
+        def lat_lon(place, i):
+            if place in COORDENADAS_FIXAS:
+                return COORDENADAS_FIXAS[place][i]
+            if not coords[place]:
+                return None
+            return coords[place].latitude if i == 0 else coords[place].longitude
+
+        data_wb['lat'] = data_wb['Jurisdiction covered'].map(lambda x: lat_lon(x, 0))
+        data_wb['lon'] = data_wb['Jurisdiction covered'].map(lambda x: lat_lon(x, 1))
 
         mvc['lat'] = mvc['Country'].map(lambda x: coords[x].latitude if coords[x] else None)
         mvc['lon'] = mvc['Country'].map(lambda x: coords[x].longitude if coords[x] else None)

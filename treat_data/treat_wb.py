@@ -12,6 +12,11 @@ Layout notes (World Bank file, edition May 2026):
   and printed at the end of the run so they can be reviewed.
 - "Share of jurisdiction emissions covered" is a text such as
   "73% of jurisdiction emissions, 0.0098% of global emissions" and is split in two numeric columns.
+- "Start Year derived" marks the start years that the World Bank does not give and that were derived
+  from the data or set by hand (START_YEAR_MANUAL); the mark is carried over from the previous table.
+
+The crediting sheets (Crediting_Detail, Crediting_Issuance, Cooperative Approaches) are treated by
+update_wb_crediting() and saved in wb_crediting_info.csv, wb_crediting_issuance.csv and wb_cooperative.csv.
 """
 
 import pandas as pd
@@ -38,6 +43,20 @@ meses = {
 CIDADES = {"Minneapolis", "Mexico City"}
 # Jurisdictions whose ID carries a suffix but that are national
 NACIONAIS_COM_SUFIXO = {"Taiwan, China"}
+
+# Start years set by hand (decision of 01/10/2026), always marked as derived. Keys are normalised names.
+# Taiwan: the World Bank description says the carbon fee was "Launched on January 1, 2025" (the price series starts in 2024).
+# Minneapolis: no description in the file; the only year with price is 2026.
+START_YEAR_MANUAL = {"taiwan, china carbon fee": 2025, "minneapolis carbon tax": 2026}
+# Scope set by hand (decision of 01/10/2026): Taiwan ETS is national, like the Taiwan carbon fee
+SUBTYPE_MANUAL = {"taiwan, china ets": "Nacional"}
+
+
+def translate_date(text):
+    """'April 1, 2026' -> 'Abril 1, 2026' (format used in data/update_info.csv)."""
+    for en, pt in meses.items():
+        text = text.replace(en, pt)
+    return text.strip()
 
 
 def _norm(name):
@@ -84,11 +103,8 @@ def update_wb(file_path='data/raw/dados_wb.xlsx',
         countries_info_data (str): Optional path to a csv file with additional country information. (Expected columns: Jurisdiction;Income Group;Region)
     """
     #get update info
-    last_update = pd.read_excel(file_path, nrows=1, usecols=[0]).columns[0]\
-                        .replace("Data last updated ","")
-
-    mes_traducao = [(k,v) for k,v in meses.items() if k in last_update][0]
-    last_update = last_update.replace(mes_traducao[0], mes_traducao[1])
+    last_update = translate_date(pd.read_excel(file_path, nrows=1, usecols=[0]).columns[0]\
+                        .replace("Data last updated ",""))
 
     last_update_db = pd.read_csv('data/update_info.csv',index_col=0)
     last_update_db.loc['WB'] = last_update
@@ -101,6 +117,8 @@ def update_wb(file_path='data/raw/dados_wb.xlsx',
         old = old.drop_duplicates("key").set_index("key")
     else:
         old = pd.DataFrame(columns=["Start Year", "End Year", "Subtype", "Region", "Income group", "Jurisdiction covered"])
+    if "Start Year derived" not in old.columns:
+        old["Start Year derived"] = False
 
     #read data
     df_info = _read_sheet(file_path, 'Compliance_Gen Info', 'Unique ID')
@@ -164,7 +182,13 @@ def update_wb(file_path='data/raw/dados_wb.xlsx',
     # consideration/development); the file no longer gives it, so new ones stay without year
     df_info["Start Year"] = df_info["key"].map(old["Start Year"])
     started = df_info["Status"].isin(["Implemented", "Abolished"])
-    df_info.loc[started, "Start Year"] = df_info.loc[started, "Start Year"].fillna(derived_start[started])
+    df_info["Start Year derived"] = df_info["key"].map(old["Start Year derived"]).fillna(False).astype(bool)
+    to_derive = started & df_info["Start Year"].isnull()
+    df_info.loc[to_derive, "Start Year"] = derived_start[to_derive]
+    df_info.loc[to_derive & df_info["Start Year"].notnull(), "Start Year derived"] = True
+    manual = df_info["key"].isin(START_YEAR_MANUAL)
+    df_info.loc[manual, "Start Year"] = df_info.loc[manual, "key"].map(START_YEAR_MANUAL)
+    df_info.loc[manual, "Start Year derived"] = True
     df_info["End Year"] = df_info["key"].map(old["End Year"])
 
     new_start = df_info[df_info["Start Year"].notnull() & ~df_info["key"].isin(old.index)]
@@ -239,6 +263,8 @@ def update_wb(file_path='data/raw/dados_wb.xlsx',
     print("Subtype derived from the instrument ID (new instruments, please review):")
     print(pd.DataFrame({"Instrument name": new_subtype["Instrument name"], "Subtype": derived_subtype[new_subtype.index]}).to_string(index=False), '\n')
     df_info["Subtype"] = df_info["Subtype"].fillna(derived_subtype)
+    manual = df_info["key"].isin(SUBTYPE_MANUAL)
+    df_info.loc[manual, "Subtype"] = df_info.loc[manual, "key"].map(SUBTYPE_MANUAL)
 
     df_info["Type"] = df_info["Type"].apply(lambda x: "Carbon tax" if "Carbon tax" in x else "ETS")
 
@@ -324,5 +350,102 @@ def update_wb(file_path='data/raw/dados_wb.xlsx',
     print("Done WB")
 
 
+def update_wb_crediting(file_path='data/raw/dados_wb.xlsx', save_path="data/processed"):
+    """
+    Treat the crediting sheets of the World Bank file (crediting mechanisms and Article 6.2 agreements).
+
+    Saves:
+        wb_crediting_info.csv: one row per mechanism (description, status, cumulative credits until 31/12 of the last year).
+        wb_crediting_issuance.csv: annual issuance per mechanism (long format: Mechanism;Year;Issued).
+        wb_cooperative.csv: Article 6.2 agreements (Buyer;Year;Seller;Status;Notes).
+    """
+    last_update_db = pd.read_csv('data/update_info.csv', index_col=0)
+
+    status_pt = {"Implemented": "Implementado", "Under development": "Em desenvolvimento",
+                 "Abolished": "Extinto", "Removed": "Removido"}
+    administration_pt = {"Governmental": "Governamental", "Independent": "Independente", "International": "Internacional"}
+    scope_pt = {"Global": "Global", "National": "Nacional", "Subnational": "Subnacional", "Regional": "Regional"}
+
+    #DETAIL
+    detail = _read_sheet(file_path, 'Crediting_Detail', 'Mechanism')
+    detail.columns = [str(c).strip() for c in detail.columns]
+    detail = detail.dropna(subset=["Mechanism"])
+    detail["Mechanism"] = detail["Mechanism"].str.replace("\xa0", " ").str.strip()
+
+    unknown = detail[detail["Status"].notnull() & ~detail["Status"].isin(status_pt)]
+    print("Crediting mechanisms with status outside the expected list (shown as 'Não classificado'):",
+          unknown[["Mechanism", "Status"]].values.tolist(), '\n')
+    detail["Status"] = detail["Status"].map(status_pt).fillna("Não classificado")
+    detail["Administration"] = detail["Administration"].map(administration_pt).fillna("Não informado")
+    detail["Scope"] = detail["Scope"].map(scope_pt).fillna("Não informado")
+
+    sectors = ['Agriculture', 'CCS / CCU', 'Energy Efficiency / Fuel Switching', 'Forestry / Land Use',
+               'Fugitive Emissions', 'Industrial Gases/Manufacturing', 'Renewable Energy', 'Transport', 'Waste']
+    detail["Eligible sectors"] = detail[sectors].eq("Yes").apply(lambda row: ', '.join(row.index[row]), axis=1)
+
+    cumulative = {c: c for c in detail.columns if c.startswith("Cumulative")}
+    cumulative_year = re.search(r"(\d{4})", list(cumulative)[0]).group(1)
+    detail = detail.rename(columns={
+        "Administering Jurisdiction or organisation": "Jurisdiction",
+        "Income Group of Administering Country": "Income group",
+        "Compliance CPIs accepting credits generated through mechanism": "Accepted by compliance instruments",
+        [c for c in cumulative if "issued" in c][0]: "Cumulative issued (kt)",
+        [c for c in cumulative if "retired" in c][0]: "Cumulative retired (kt)",
+        [c for c in cumulative if "cancelled" in c][0]: "Cumulative cancelled (kt)",
+        [c for c in cumulative if "Projects" in c][0]: "Cumulative projects registered",
+    })
+    keep = ["Mechanism", "Administration", "Status", "Year of Implementation", "Scope", "Jurisdiction", "Region",
+            "Income group", "Credit name", "Price (Range)", "Eligible sectors", "Accepted by compliance instruments",
+            "Cumulative issued (kt)", "Cumulative retired (kt)", "Cumulative cancelled (kt)",
+            "Cumulative projects registered", "Description of the mechanism", "Recent developments"]
+    detail = detail[keep].replace(r"^\s*$", np.nan, regex=True)
+    for col in ["Mechanism", "Credit name", "Price (Range)", "Accepted by compliance instruments"]:
+        detail[col] = detail[col].str.replace("\xa0", " ").str.strip()
+
+    #ISSUANCE
+    issuance = _read_sheet(file_path, 'Crediting_Issuance', 'Mechanism')
+    dropped = issuance["Mechanism"].isnull()
+    print("Issuance rows without mechanism name (dropped):", int(dropped.sum()),
+          "| total issued in them:", issuance[dropped].select_dtypes("number").sum().sum(), '\n')
+    issuance = issuance[~dropped]
+    issuance["Mechanism"] = issuance["Mechanism"].str.replace("\xa0", " ").str.strip()
+    years = [c for c in issuance.columns if isinstance(c, int)]
+    issuance = issuance.set_index("Mechanism")[years]
+    issuance.columns.name = "Year"
+    issuance = issuance.stack().to_frame("Issued").reset_index()
+
+    no_detail = sorted(set(issuance["Mechanism"]) - set(detail["Mechanism"]))
+    print("Issuance mechanisms without detail (administration unknown):", no_detail, '\n')
+
+    #COOPERATIVE APPROACHES (Article 6.2)
+    coop = _read_sheet(file_path, 'Cooperative Approaches', 'Buyer').dropna(subset=["Buyer"])
+    coop = coop.rename(columns={"Year of Agreement": "Year", "Status of Agreement": "Status"})
+    for col in ["Buyer", "Seller", "Status"]:
+        coop[col] = coop[col].str.replace("\xa0", " ").str.strip()
+    # the file spells "Bilateral" as "Bilteral" and varies the capitalisation
+    coop_status_pt = {"mou signed": "Memorando de entendimento assinado",
+                      "implementing agreement signed": "Acordo de implementação assinado",
+                      "bilteral authorization completed": "Autorização bilateral concluída",
+                      "bilateral authorization completed": "Autorização bilateral concluída"}
+    coop["Status"] = coop["Status"].str.lower().map(coop_status_pt).fillna(coop["Status"])
+    print("Article 6.2 agreements by status:", coop["Status"].value_counts().to_dict(), '\n')
+
+    #update info: "Data last updated by May 1, 2026" in the first cell of each sheet
+    def sheet_date(sheet):
+        first = pd.read_excel(file_path, sheet_name=sheet, nrows=1, usecols=[0]).columns[0]
+        return translate_date(first.replace("Data last updated by ", ""))
+
+    last_update_db.loc['WB_CREDITO'] = sheet_date('Crediting_Detail')
+    last_update_db.loc['WB_ARTIGO6'] = sheet_date('Cooperative Approaches')
+
+    detail.to_csv(f"{save_path}/wb_crediting_info.csv", index=False, sep=";", decimal=",")
+    issuance.to_csv(f"{save_path}/wb_crediting_issuance.csv", index=False, sep=";", decimal=",")
+    coop.to_csv(f"{save_path}/wb_cooperative.csv", index=False, sep=";", decimal=",")
+    last_update_db.to_csv('data/update_info.csv')
+
+    print(f"Done WB crediting (cumulative values until 31/12/{cumulative_year})")
+
+
 if __name__ == "__main__":
      update_wb()
+     update_wb_crediting()

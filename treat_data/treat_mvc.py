@@ -69,7 +69,7 @@ def update_mvc(file_path='data/raw/dados_mvc.xlsx'):
                 "Agriculture": "Agricultura",
                 "Carbon Capture & Storage": "Captura e Armazenamento de Carbono",
                 "Chemical Processes": "Processos Químicos",
-                "Engineered Removal": "Remoção Engenheirada",
+                "Engineered Removal": "Remoção por engenharia",
                 "Forestry & Land Use": "Florestas e Uso da Terra",
                 "Household & Community": "Domicílios e Comunidades",
                 "Industrial & Commercial": "Industrial e Comercial",
