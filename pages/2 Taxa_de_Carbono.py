@@ -22,7 +22,7 @@ data_wb = data_wb[data_wb["Type"]=="Taxas de Carbono"]
 series_wb =series_wb[series_wb["Instrument Type"]=="Taxas de Carbono"]
 
 st.title("Taxa de Carbono")
-st.text(f"Fonte: Banco Mundial ({update_info['WB']})")   
+st.text(c.fonte("WB"))   
 st.markdown("##") #espacamento entre blocos
 
 # METRICAS (RESUMO)
@@ -35,8 +35,10 @@ crescimento_iniciativas = iniciativas_implementadas - iniciativas_anteriores
 
 # % emissoes globais cobertas
 percent_emissoes = sum(data_wb["Share of global emissions covered"].dropna())*100
-percent_emissoes_ano_anterior = sum(data_wb[data_wb["Start Year"]<data_wb["Start Year"].max()]["Share of global emissions covered"].dropna())*100
-crescimento_percent_emissoes = percent_emissoes - percent_emissoes_ano_anterior
+# variação: soma da aba Compliance_Emissions no último ano menos a do ano anterior
+emissoes_ano = series_wb.groupby("Year")["Emissions"].sum()*100
+ano_emissoes = series_wb.dropna(subset=["Emissions"])["Year"].max()
+crescimento_percent_emissoes = emissoes_ano[ano_emissoes] - emissoes_ano[ano_emissoes-1]
 
 # preço medio
 preco_medio = series_wb[series_wb["Year"]==series_wb["Year"].max()]["Price"].dropna().mean()
@@ -51,7 +53,7 @@ crescimento_receita_medio = receita_medio - receita_medio_ano_anterior
 # Exibir as métricas
 metrics_col = st.columns(4)
 metrics_col[0].metric(f"Iniciativas Implementadas", iniciativas_implementadas, f"{crescimento_iniciativas}", border=True)
-metrics_col[1].metric("Percentual de emissões globais cobertas", f"{percent_emissoes:.2f}%",delta=f"{crescimento_percent_emissoes:.2f}%", border=True,help='Variação em relação ao ano anterior abaixo')
+metrics_col[1].metric("Percentual de emissões globais cobertas", f"{percent_emissoes:.2f}%",delta=f"{crescimento_percent_emissoes:.2f} p.p.", border=True,help=f"Variação em relação ao ano anterior abaixo, em pontos percentuais ({ano_emissoes-1} a {ano_emissoes}, soma da cobertura de emissões dos instrumentos no Banco Mundial)")
 metrics_col[2].metric("Preço médio (US$/tCO2e)", f"${preco_medio:.2f}", delta=f"{crescimento_preco_medio:.2f} USD", border=True,help='Variação em relação ao ano anterior abaixo')
 metrics_col[3].metric("Receita média (Milhões US$)", f"${receita_medio:.2f}", delta=f"{crescimento_receita_medio:.2f} USD", border=True, delta_color="normal",help='Variação em relação ao ano anterior abaixo')
 
@@ -116,7 +118,7 @@ fig.update_layout(
     )
 
 st.plotly_chart(fig, use_container_width=True,theme="streamlit")
-st.caption("O mapa apresenta o status de implementação de taxas de carbono em diferentes jurisdições ao redor do mundo. As áreas coloridas representam iniciativas em nível nacional, enquanto os quadrados sobrepostos indicam políticas subnacionais (estaduais ou provinciais). Cada cor corresponde a um status distinto: implementada, em consideração, em desenvolvimento ou abolida.")
+st.caption("O mapa apresenta o status de implementação de taxas de carbono em diferentes jurisdições ao redor do mundo. As áreas coloridas representam iniciativas em nível nacional, enquanto os quadrados sobrepostos indicam políticas subnacionais (estaduais ou provinciais). Cada cor corresponde a um status distinto: implementada, em consideração, em desenvolvimento ou abolida. " + c.fonte("WB"))
 
  
 st.markdown("##") #espacamento entre blocos
@@ -132,9 +134,9 @@ with agregadas:
     g.serie_emissoes_agg(series_wb, emissoes,legend=False)
     g.serie_receita_agg(series_wb, key='agg', st_location= receita,legend=False)
 
-    preco.caption("O gráfico apresenta a evolução histórica dos preços das iniciativas de taxa de carbono ao longo do tempo. A visualização permite diferentes métricas (média, mediana, mínimo e máximo), e pode ser consultada de forma agregada ou desagregada por iniciativa")
-    emissoes.caption("Este gráfico mostra o percentual global de emissões de gases de efeito estufa coberto por taxas de carbono ao longo do tempo. A série histórica pode ser visualizada de forma agregada ou por iniciativa individual.")
-    receita.caption("O gráfico apresenta a evolução  da receita anual gerada por  iniciativas de taxa de carbono. A visualização permite  consulta de forma agregada ou  desagregada por iniciativa.")
+    preco.caption("O gráfico apresenta a evolução histórica dos preços das iniciativas de taxa de carbono ao longo do tempo. A visualização permite diferentes métricas (média, mediana, mínimo e máximo), e pode ser consultada de forma agregada ou desagregada por iniciativa. " + c.fonte("WB"))
+    emissoes.caption("Este gráfico mostra o percentual global de emissões de gases de efeito estufa coberto por taxas de carbono ao longo do tempo. A série histórica pode ser visualizada de forma agregada ou por iniciativa individual. " + c.fonte("WB"))
+    receita.caption("O gráfico apresenta a evolução  da receita anual gerada por  iniciativas de taxa de carbono. A visualização permite  consulta de forma agregada ou  desagregada por iniciativa. " + c.fonte("WB"))
 
 
 with por_iniciativa:
@@ -152,7 +154,7 @@ with por_iniciativa:
     g.compare_series_plot(cur_selection, "Emissions",legend_name="Name of the initiative", st_location=emissoes)
 
 
-    preco.caption("O gráfico apresenta a evolução histórica dos preços das iniciativas de taxa de carbono ao longo do tempo. A visualização permite diferentes métricas (média, mediana, mínimo e máximo), e pode ser consultada de forma agregada ou desagregada por iniciativa")
-    emissoes.caption("Este gráfico mostra o percentual global de emissões de gases de efeito estufa coberto por taxas de carbono ao longo do tempo. A série histórica pode ser visualizada de forma agregada ou por iniciativa individual.")
-    receita.caption("O gráfico apresenta a evolução  da receita anual gerada por  iniciativas de taxa de carbono. A visualização permite  consulta de forma agregada ou  desagregada por iniciativa.")
+    preco.caption("O gráfico apresenta a evolução histórica dos preços das iniciativas de taxa de carbono ao longo do tempo. A visualização permite diferentes métricas (média, mediana, mínimo e máximo), e pode ser consultada de forma agregada ou desagregada por iniciativa. " + c.fonte("WB"))
+    emissoes.caption("Este gráfico mostra o percentual global de emissões de gases de efeito estufa coberto por taxas de carbono ao longo do tempo. A série histórica pode ser visualizada de forma agregada ou por iniciativa individual. " + c.fonte("WB"))
+    receita.caption("O gráfico apresenta a evolução  da receita anual gerada por  iniciativas de taxa de carbono. A visualização permite  consulta de forma agregada ou  desagregada por iniciativa. " + c.fonte("WB"))
 

@@ -18,12 +18,14 @@ update_info = pd.read_csv("data/update_info.csv",index_col=0)['Last Update']
 
 # Informações gerais
 st.title("Mecanismos de Compliance")
-st.text(f"Fonte: Banco Mundial ({update_info['WB']})") 
+st.text(c.fonte("WB"))
 
 # Estatisticas de data_wb
 percent_emissoes = sum(data_wb["Share of global emissions covered"].dropna())*100
-percent_emissoes_ano_anterior = sum(data_wb[data_wb["Start Year"]<data_wb["Start Year"].max()]["Share of global emissions covered"].dropna())*100
-crescimento_percent_emissoes = percent_emissoes - percent_emissoes_ano_anterior
+# variação: soma da aba Compliance_Emissions no último ano menos a do ano anterior
+emissoes_ano = series_wb.groupby("Year")["Emissions"].sum()*100
+ano_emissoes = series_wb.dropna(subset=["Emissions"])["Year"].max()
+crescimento_percent_emissoes = emissoes_ano[ano_emissoes] - emissoes_ano[ano_emissoes-1]
 
 implementadas = data_wb[data_wb['Status']=="Implementado"]
 iniciativas_implementadas = len(implementadas["Instrument name"].unique())
@@ -37,7 +39,7 @@ crescimento_preco_medio = preco_medio - preco_medio_ano_anterior
 #mostra metricas
 metrics_col = st.columns(3)
 metrics_col[0].metric(f"Iniciativas Implementadas", iniciativas_implementadas, f"{crescimento_iniciativas}", border=True,help='Variação em relação ao ano anterior abaixo')
-metrics_col[1].metric("Percentual de emissões globais cobertas", f"{percent_emissoes:.2f}%",delta=f"{crescimento_percent_emissoes:.2f}%", border=True,help='Variação em relação ao ano anterior abaixo')
+metrics_col[1].metric("Percentual de emissões globais cobertas", f"{percent_emissoes:.2f}%",delta=f"{crescimento_percent_emissoes:.2f} p.p.", border=True,help=f'Variação em relação ao ano anterior abaixo, em pontos percentuais ({ano_emissoes-1} a {ano_emissoes}, soma da cobertura de emissões dos instrumentos no Banco Mundial)')
 metrics_col[2].metric("Preço médio (US$/tCO2e)", f"{preco_medio:.2f}", delta=f"{crescimento_preco_medio:.2f} USD", border=True,help='Variação em relação ao ano anterior abaixo')
  
 st.markdown("##") #espacamento entre blocos
@@ -130,7 +132,7 @@ with mapa:
         caption+= "O tamanho dos marcadores é proporcional ao percentual de cobertura da jurisdição," \
         " ou seja, reflete a abrangência do instrumento em relação às emissões totais da localidade. "
     
-    st.caption(caption)
+    st.caption(caption + " " + c.fonte("WB"))
 
 
 #Gráfico de barras/linhas tipos de Iniciativas 
@@ -195,7 +197,7 @@ with barras:
     
     
     st.plotly_chart(fig, use_container_width=True)
-    st.caption("O gráfico apresenta o número de mecanismos de *compliance* para precificação de carbono, classificados por tipo de instrumento: **taxa de carbono** e **sistema de comércio de emissões**. A visualização permite a aplicação de diferentes filtros e formas de agregação: é possível **filtrar as iniciativas por status** e **agregar os resultados por região geográfica e faixa de renda** (conforme classificação do Banco Mundial)")
+    st.caption("O gráfico apresenta o número de mecanismos de *compliance* para precificação de carbono, classificados por tipo de instrumento: **taxa de carbono** e **sistema de comércio de emissões**. A visualização permite a aplicação de diferentes filtros e formas de agregação: é possível **filtrar as iniciativas por status** e **agregar os resultados por região geográfica e faixa de renda** (conforme classificação do Banco Mundial). " + c.fonte("WB"))
 
 
 with linhas:
@@ -237,7 +239,17 @@ with linhas:
     
 
     st.plotly_chart(fig, use_container_width=True)
-    st.caption("O gráfico apresenta a evolução do número  de mecanismos de compliance para precificação de carbono, por status, ao longo do tempo, diferenciando entre taxas de carbono e sistemas de comércio de emissões. É possível filtrar as iniciativas por status.")
+    # instrumentos sem ano de início ficam fora da linha do tempo; anos derivados ficam marcados
+    status_sel = data_wb[data_wb["Status"]==filtro_dados]
+    sem_ano = status_sel[status_sel["Start Year"].isnull()]["Instrument name"].tolist()
+    derivados = status_sel[status_sel["Start Year derived"].fillna(False).astype(bool)]
+    nota = ""
+    if sem_ano:
+        nota += f" O arquivo do Banco Mundial não informa o ano de início de {len(sem_ano)} instrumentos com este status, que não aparecem na linha do tempo: {', '.join(sem_ano)}."
+    if len(derivados):
+        nota += " Ano de início derivado pelo painel (o Banco Mundial não o informa): " + \
+            ", ".join(f"{n} ({int(a)})" for n, a in derivados[["Instrument name","Start Year"]].values) + "."
+    st.caption("O gráfico apresenta a evolução do número  de mecanismos de compliance para precificação de carbono, por status, ao longo do tempo, diferenciando entre taxas de carbono e sistemas de comércio de emissões. É possível filtrar as iniciativas por status." + nota + " " + c.fonte("WB"))
     
 
 st.markdown("##") #espacamento entre blocos
@@ -287,7 +299,7 @@ with preco:
         )
 
     plot_placeholder.plotly_chart(fig, use_container_width=True)
-    st.caption("O gráfico mostra a evolução histórica dos preços  em mecanismos de compliance para precificação  de carbono, diferenciando entre taxas de carbono  e ETS. A visualização permite que o preço seja  agregado por valor médio, mediana, mínimo, e  máximo.")
+    st.caption("O gráfico mostra a evolução histórica dos preços  em mecanismos de compliance para precificação  de carbono, diferenciando entre taxas de carbono  e ETS. A visualização permite que o preço seja  agregado por valor médio, mediana, mínimo, e  máximo. " + c.fonte("WB"))
 
 
 with emissoes:
@@ -321,7 +333,7 @@ with emissoes:
 
     
     st.plotly_chart(fig, use_container_width=True)
-    st.caption("O gráfico apresenta a proporção de emissões de gases de efeito estufa cobertas por mecanismos de compliance para precificação de carbono, ao longo do tempo, por tipo de iniciativa.")
+    st.caption("O gráfico apresenta a proporção de emissões de gases de efeito estufa cobertas por mecanismos de compliance para precificação de carbono, ao longo do tempo, por tipo de iniciativa. " + c.fonte("WB"))
 
 
 with receita:
@@ -367,7 +379,7 @@ with receita:
         )
 
     plot_placeholder.plotly_chart(fig, use_container_width=True)
-    st.caption("O gráfico mostra a receita anual gerada por  mecanismos de compliance para precificação de  carbono, desagregada por tipo (taxa de carbono e  ETS). A visualização premite que a receita seja agregada por valor médio e total.")
+    st.caption("O gráfico mostra a receita anual gerada por  mecanismos de compliance para precificação de  carbono, desagregada por tipo (taxa de carbono e  ETS). A visualização premite que a receita seja agregada por valor médio e total. " + c.fonte("WB"))
 
 
 st.header("Comparação Preço Explícito")
@@ -411,4 +423,4 @@ with carbon_tax:
 
     st.plotly_chart(fig, use_container_width=True)
 
-st.caption(f"O gráfico apresenta o preço explícito do carbono (em US$/tCO₂e) praticado em diferentes países e regiões, em {last_year}, com distinção entre taxas de carbono e ETS.")
+st.caption(f"O gráfico apresenta o preço explícito do carbono (em US$/tCO₂e) praticado em diferentes países e regiões, em {last_year}, com distinção entre taxas de carbono e ETS. " + c.fonte("WB"))

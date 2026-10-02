@@ -15,14 +15,13 @@ c.sobre_dash()
 
 
 #carregar os dados
-corsia_countries = pd.read_excel("data/processed/DADOS_MANUAIS.xlsx", sheet_name="CORSIA_countries")
+corsia_countries = pd.read_csv("data/processed/corsia_countries.csv", sep=";")
 corsia_precos = pd.read_excel("data/processed/DADOS_MANUAIS.xlsx", sheet_name="CORSIA_price",index_col=0)
-iso_countries = pd.read_csv("data/processed/iso_countries.csv", sep=";", decimal=",", index_col=1)
 update_info = pd.read_csv("data/update_info.csv",index_col=0)['Last Update']
 
 #Título da página
 st.title("CORSIA")
-st.write(f"Fontes: CORSIA ({update_info['CORSIA']}); Ecosystem Marketplace ({update_info['Ecosystem Marketplace']})")
+st.write(c.fonte("ICAO", "CORSIA_PRECO"))
 st.markdown("##") #espacamento entre blocos
 
 
@@ -37,15 +36,15 @@ traducao_setores = {
 
 corsia_precos.columns = corsia_precos.columns.str.strip().map(traducao_setores)
 
-#get ISO country codes
-corsia_countries['country'] = corsia_countries['country'].str.strip()
-corsia_countries = corsia_countries.join(iso_countries, on="country", how="left")
+#nome exibido: o da edição mais recente da ICAO para o mesmo ISO (a ICAO mudou grafias, p. ex. Turkey e Türkiye)
+corsia_countries['country'] = corsia_countries['name']
+ultimo_ano = corsia_countries['year'].max()
 
 initial_year = corsia_countries.groupby(["ISO","country"])['year'].agg(["min","max"])
 
 paises_nao_participantes = initial_year[initial_year['max'] != corsia_countries['year'].max()].copy()\
                         .reset_index().drop("ISO", axis=1)\
-                        .rename(columns={"min":"Ano de Entrada","max":"Ano de Saída","country":"País"})\
+                        .rename(columns={"min":"Primeiro ano","max":"Último ano","country":"País"})\
                         .set_index("País")
 
 initial_year = initial_year[initial_year["max"]==corsia_countries['year'].max()].reset_index().sort_values("min")
@@ -118,7 +117,7 @@ with grafico:
     st.plotly_chart(fig, use_container_width=True)
 
 #legenda por fora do da coluna para ocupar o espaço todo
-st.caption("O mapa apresenta os países participantes do CORSIA (Carbon Offsetting and Reduction Scheme for International Aviation), conforme o ano de adesão ao mecanismo. A visualização permite dois modos de consulta: (i) por ano específico, destacando os países que participaram em determinado ano; e (ii) total acumulado até 2025, indicando o ano de entrada de cada país no programa.")
+st.caption(f"O mapa apresenta os países participantes do CORSIA (Carbon Offsetting and Reduction Scheme for International Aviation), conforme o ano de adesão ao mecanismo. A visualização permite dois modos de consulta: (i) por ano específico, destacando os países que participaram em determinado ano; e (ii) participantes em {ultimo_ano}, indicando o ano de entrada de cada país no programa. A lista de {ultimo_ano} é a que a ICAO publicou para participação a partir de 1º de janeiro de {ultimo_ano}. " + c.fonte("ICAO"))
 
 # numero de participantes por ano #
 col1, col2 = st.columns(2)
@@ -133,11 +132,11 @@ fig = px.bar(participantes_por_ano,
                 )
 
 col1.plotly_chart(fig, use_container_width=True)
-col1.caption("O gráfico apresenta a evolução anual do número de países participantes do CORSIA")
+col1.caption("O gráfico apresenta a evolução anual do número de países participantes do CORSIA, uma edição da ICAO por ano. " + c.fonte("ICAO"))
 
 col2.markdown("<b>Países que saíram do CORSIA</b>",unsafe_allow_html=True)
 col2.table(paises_nao_participantes)
-col2.caption("A tabela indica os países que deixaram de participar do programa, com os respectivos anos de entrada e saída.")
+col2.caption("A tabela indica os países que deixaram de participar do programa, com o primeiro e o último ano em que constam da lista. " + c.fonte("ICAO"))
 
 # CORSIA preços
 fig = px.bar(corsia_precos.T, 
@@ -148,4 +147,4 @@ fig = px.bar(corsia_precos.T,
                 )
 
 st.plotly_chart(fig, use_container_width=True)
-st.caption("O gráfico apresenta os preços médios (em US$/tCO₂eq) dos créditos de carbono elegíveis para uso no CORSIA, desagregados por categoria de projeto e ano (2020 e 2021)")
+st.caption("O gráfico apresenta os preços médios (em US$/tCO₂eq) dos créditos de carbono elegíveis para uso no CORSIA, desagregados por categoria de projeto e ano (2020 e 2021). As categorias seguem a taxonomia da Ecosystem Marketplace, mas a fonte original desses valores não foi registrada na planilha do painel. " + c.fonte("CORSIA_PRECO"))

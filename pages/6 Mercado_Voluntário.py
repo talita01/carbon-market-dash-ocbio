@@ -28,7 +28,7 @@ pais_info = mvc_credits_info.copy()
 
 #titulo
 st.title("Mercado Voluntário")
-st.write(f"Fontes: Berkeley carbon trading project ({update_info['MVC']}); Ecosystem Marketplace ({update_info['Ecosystem Marketplace']})")
+st.write(c.fonte("MVC", "EM"))
 st.markdown("##") #espacamento entre blocos
 
 
@@ -101,7 +101,7 @@ else:
         )
 
     col2.plotly_chart(fig, use_container_width=True)
-st.caption("O mapa apresenta a distribuição geográfica dos créditos de carbono emitidos no mercado voluntário, com base em projetos certificados em diferentes escopos. A visualização permite a seleção por ano e escopo, e pode ser alternada entre o total de créditos emitidos ou o número de projetos registrados por país. ")
+st.caption("O mapa apresenta a distribuição geográfica dos créditos de carbono emitidos no mercado voluntário, com base em projetos certificados em diferentes escopos. A visualização permite a seleção por ano e escopo, e pode ser alternada entre o total de créditos emitidos ou o número de projetos registrados por país. " + c.fonte("MVC"))
 
 
 st.markdown("##") #espacamento entre blocos
@@ -127,7 +127,7 @@ fig.update_layout(title=dict(text=f"Série histórica de demanda e oferta de cr�
                    legend=dict(orientation="h", yanchor="bottom",x=0, y=1,font=dict(size=12)))
 
 st.plotly_chart(fig, use_container_width=True)
-st.caption(" O gráfico mostra a evolução anual do total de créditos de carbono emitidos (por data de emissão e remoção/redução) e aposentados no mercado voluntário de carbono")
+st.caption("O gráfico mostra a evolução anual do total de créditos de carbono emitidos (por data de emissão e remoção/redução) e aposentados no mercado voluntário de carbono. O ano corrente fica de fora por estar incompleto. " + c.fonte("MVC"))
 
 col2, col3 = st.columns(2)
 
@@ -140,7 +140,7 @@ fig  = px.bar(summary_objective,x="total",text="percent",
               title=f"Créditos por Tipo de Projeto | {tempo_info}<br>{setor_info}",
             labels={"total":"Número de Projetos", "Reduction / Removal":"Objetivo"})
 col2.plotly_chart(fig, use_container_width=True)
-col2.caption("O gráfico apresenta o número de projetos no mercado voluntário de carbono de acordo com o tipo de projeto. ")
+col2.caption("O gráfico apresenta o número de projetos no mercado voluntário de carbono de acordo com o tipo de projeto. " + c.fonte("MVC"))
 
 # por escopo
 summary_objective = mvc_credits_info.groupby("Voluntary Registry")["Total Credits Issued"].count().sort_values().to_frame("total")
@@ -151,7 +151,7 @@ fig  = px.bar(summary_objective,x="total",text="percent",
               title=f"Créditos por Certificadora | {tempo_info}<br>{setor_info}",
             labels={"total":"Número de Projetos", "Voluntary Registry":"Certificadora"})
 col3.plotly_chart(fig, use_container_width=True)
-col3.caption("Este gráfico mostra o número de projetos registrados em diferentes certificadoras no mercado voluntário de carbono")
+col3.caption("Este gráfico mostra o número de projetos registrados em diferentes certificadoras no mercado voluntário de carbono. " + c.fonte("MVC"))
 
 st.markdown("##") #espacamento entre blocos
 st.subheader("Créditos no MVC por localização")
@@ -221,19 +221,18 @@ fig = px.bar(data_plot,
              )
 
 st.plotly_chart(fig, use_container_width=True)
-st.caption("O gráfico apresenta a distribuição do número de projetos de carbono no mercado voluntário por região. A visualização oferece diferentes possibilidades de consulta: é possível agrupar os dados por região ou país, selecionar a métrica desejada (número de projetos ou total de créditos emitidos), definir o recorte temporal com base no ano de início, e ainda visualizar os resultados por escopo do projeto, certificadora ou tipo de projeto (ex: redução, remoção, etc.")
+st.caption("O gráfico apresenta a distribuição do número de projetos de carbono no mercado voluntário por região. A visualização oferece diferentes possibilidades de consulta: é possível agrupar os dados por região ou país, selecionar a métrica desejada (número de projetos ou total de créditos emitidos), definir o recorte temporal com base no ano de início, e ainda visualizar os resultados por escopo do projeto, certificadora ou tipo de projeto (ex: redução, remoção, etc.). " + c.fonte("MVC"))
 
 ##################### 
 st.header("MVC: preço e volume")
 
 col1, col2 = st.columns(2)
 
-ver_dados_por = col1.radio("Ver dados por:", ("Região", "Escopo"),horizontal=True)
+ver_dados_por = col1.radio("Ver dados por:", ("Região", "Categoria"),horizontal=True)
 
-df_regiao  = pd.read_excel("data/processed/DADOS_MANUAIS.xlsx", sheet_name="Data_Benchmarking _Region",index_col=[0,1])
-df_setor  = pd.read_excel("data/processed/DADOS_MANUAIS.xlsx", sheet_name="Data_Benchmarking _Sector",index_col=[0,1])
-
-df_selecionado = df_regiao if ver_dados_por == "Região" else df_setor
+aba_em = "EM_Regiao" if ver_dados_por == "Região" else "EM_Categoria"
+df_em = pd.read_excel("data/processed/DADOS_MANUAIS.xlsx", sheet_name=aba_em)
+edicoes = df_em.groupby("Ano")[["Edição", "Tabela"]].first()
 
 volume = col2.radio("Comparar Volume",("Total","Porcentagem"),horizontal=True) #como deixar mais claro?
 
@@ -241,29 +240,38 @@ volume = col2.radio("Comparar Volume",("Total","Porcentagem"),horizontal=True) #
 col1, col2 = st.columns(2)
 
 #volume de créditos 
-df_selecionado = df_selecionado.unstack(level=1)
+df_selecionado = df_em.pivot_table(index="Ano", columns=ver_dados_por,
+                                   values=["Volume (MtCO2e)", "Preço (US$/tCO2e)"])
 
+volume_df = df_selecionado["Volume (MtCO2e)"]
 if volume == "Porcentagem":
-    df_selecionado["VOLUME"] = df_selecionado["VOLUME"].div(df_selecionado["VOLUME"].fillna(0).sum(axis=1), axis=0)
+    volume_df = volume_df.div(volume_df.fillna(0).sum(axis=1), axis=0)
 
-info_vol = "%" if volume == "Porcentagem" else "Total"
+info_vol = "%" if volume == "Porcentagem" else "MtCO2e"
 
-fig = px.bar(df_selecionado["VOLUME"].fillna(0),
-            title=f"Volume de Créditos de Carbono por {ver_dados_por}",
-            labels={"value": f"Volume {info_vol}", "ANO": ""})
+fig = px.bar(volume_df,
+            title=f"Volume Negociado por {ver_dados_por}",
+            labels={"value": f"Volume ({info_vol})", "Ano": "", ver_dados_por: ""})
+fig.update_xaxes(dtick=1)
 
 if volume == "Porcentagem":
     fig.update_layout(yaxis_tickformat = '.00%',)
 
+nota_em = "Volume e preço médio das transações registradas pela Ecosystem Marketplace em cada ano. " \
+    "Cada ano vem da edição mais recente que o reporta: " + \
+    "; ".join(f"{a}: {e}, {t}" for a, (e, t) in edicoes.iterrows()) + \
+    ". Ausente: não reportado na edição. " \
+    "Esta série não emenda com a série de 2016 a 2020 que o painel mostrava antes (edição 2021): a Ecosystem Marketplace mudou as categorias e as regiões."
+
 col2.plotly_chart(fig, use_container_width=True)
-col2.caption("Este gráfico mostra o volume  total anual de créditos  emitidos  no mercado  voluntário. É possível  comparar os dados em termos  absolutos ou relativos  (percentual  do total global), e  visualizar  por região ou setor.")
+col2.caption("Este gráfico mostra o volume anual de créditos negociados no mercado voluntário. É possível comparar os dados em termos absolutos ou relativos (percentual do total reportado no ano), e visualizar por região ou categoria. " + nota_em + " " + c.fonte("EM"))
 
-fig = px.bar(df_selecionado["PREÇO"].fillna(0),
+fig = px.bar(df_selecionado["Preço (US$/tCO2e)"],
             barmode="group",
-            title=f"Preço dos Créditos de Carbono por {ver_dados_por}",
-            labels={"value": f"Preço $", "ANO": ""})
-
+            title=f"Preço Médio por {ver_dados_por}",
+            labels={"value": "US$/tCO2e", "Ano": "", ver_dados_por: ""})
+fig.update_xaxes(dtick=1)
 fig.update_layout(yaxis_tickformat = '$,',)
 
 col1.plotly_chart(fig, use_container_width=True)
-col1.caption("O gráfico apresenta a variação anual do preço médio dos créditos de carbono no mercado voluntário. A visualização permite alternar entre dados por região ou escopo")
+col1.caption("O gráfico apresenta o preço médio anual dos créditos de carbono no mercado voluntário. A visualização permite alternar entre dados por região ou categoria. " + nota_em + " " + c.fonte("EM"))

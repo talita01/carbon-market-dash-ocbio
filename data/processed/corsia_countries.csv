@@ -1,0 +1,830 @@
+year;country;ISO;name;edition
+2021;Afghanistan;AFG;Afghanistan;Julho, 2020
+2021;Albania;ALB;Albania;Julho, 2020
+2021;Armenia;ARM;Armenia;Julho, 2020
+2021;Australia;AUS;Australia;Julho, 2020
+2021;Austria;AUT;Austria;Julho, 2020
+2021;Azerbaijan;AZE;Azerbaijan;Julho, 2020
+2021;Belgium;BEL;Belgium;Julho, 2020
+2021;Benin;BEN;Benin;Julho, 2020
+2021;Bosnia and Herzegovina;BIH;Bosnia and Herzegovina;Julho, 2020
+2021;Botswana;BWA;Botswana;Julho, 2020
+2021;Bulgaria;BGR;Bulgaria;Julho, 2020
+2021;Burkina Faso;BFA;Burkina Faso;Julho, 2020
+2021;Cameroon;CMR;Cameroon;Julho, 2020
+2021;Canada;CAN;Canada;Julho, 2020
+2021;Costa Rica;CRI;Costa Rica;Julho, 2020
+2021;Côte d’Ivoire;CIV;Côte d'Ivoire;Julho, 2020
+2021;Croatia;HRV;Croatia;Julho, 2020
+2021;Cyprus;CYP;Cyprus;Julho, 2020
+2021;Czechia;CZE;Czechia;Julho, 2020
+2021;Democratic Republic of the Congo;COD;Democratic Republic of the Congo;Julho, 2020
+2021;Denmark;DNK;Denmark;Julho, 2020
+2021;Dominican Republic;DOM;Dominican Republic;Julho, 2020
+2021;El Salvador;SLV;El Salvador;Julho, 2020
+2021;Equatorial Guinea;GNQ;Equatorial Guinea;Julho, 2020
+2021;Estonia;EST;Estonia;Julho, 2020
+2021;Finland;FIN;Finland;Julho, 2020
+2021;France;FRA;France;Julho, 2020
+2021;Gabon;GAB;Gabon;Julho, 2020
+2021;Georgia;GEO;Georgia;Julho, 2020
+2021;Germany;DEU;Germany;Julho, 2020
+2021;Ghana;GHA;Ghana;Julho, 2020
+2021;Greece;GRC;Greece;Julho, 2020
+2021;Guatemala;GTM;Guatemala;Julho, 2020
+2021;Guyana;GUY;Guyana;Julho, 2020
+2021;Honduras;HND;Honduras;Julho, 2020
+2021;Hungary;HUN;Hungary;Julho, 2020
+2021;Iceland;ISL;Iceland;Julho, 2020
+2021;Indonesia;IDN;Indonesia;Julho, 2020
+2021;Ireland;IRL;Ireland;Julho, 2020
+2021;Israel;ISR;Israel;Julho, 2020
+2021;Italy;ITA;Italy;Julho, 2020
+2021;Jamaica;JAM;Jamaica;Julho, 2020
+2021;Japan;JPN;Japan;Julho, 2020
+2021;Kazakhstan;KAZ;Kazakhstan;Julho, 2020
+2021;Kenya;KEN;Kenya;Julho, 2020
+2021;Latvia;LVA;Latvia;Julho, 2020
+2021;Lithuania;LTU;Lithuania;Julho, 2020
+2021;Luxembourg;LUX;Luxembourg;Julho, 2020
+2021;Madagascar;MDG;Madagascar;Julho, 2020
+2021;Malaysia;MYS;Malaysia;Julho, 2020
+2021;Malta;MLT;Malta;Julho, 2020
+2021;Marshall Islands;MHL;Marshall Islands;Julho, 2020
+2021;Mexico;MEX;Mexico;Julho, 2020
+2021;Monaco;MCO;Monaco;Julho, 2020
+2021;Montenegro;MNE;Montenegro;Julho, 2020
+2021;Namibia;NAM;Namibia;Julho, 2020
+2021;Netherlands;NLD;Netherlands;Julho, 2020
+2021;New Zealand;NZL;New Zealand;Julho, 2020
+2021;Nigeria;NGA;Nigeria;Julho, 2020
+2021;North Macedonia;MKD;North Macedonia;Julho, 2020
+2021;Norway;NOR;Norway;Julho, 2020
+2021;Papua New Guinea;PNG;Papua New Guinea;Julho, 2020
+2021;Philippines;PHL;Philippines;Julho, 2020
+2021;Poland;POL;Poland;Julho, 2020
+2021;Portugal;PRT;Portugal;Julho, 2020
+2021;Qatar;QAT;Qatar;Julho, 2020
+2021;Republic of Korea;KOR;Republic of Korea;Julho, 2020
+2021;Republic of Moldova;MDA;Republic of Moldova;Julho, 2020
+2021;Romania;ROU;Romania;Julho, 2020
+2021;Rwanda;RWA;Rwanda;Julho, 2020
+2021;San Marino;SMR;San Marino;Julho, 2020
+2021;Saudi Arabia;SAU;Saudi Arabia;Julho, 2020
+2021;Serbia;SRB;Serbia;Julho, 2020
+2021;Singapore;SGP;Singapore;Julho, 2020
+2021;Slovakia;SVK;Slovakia;Julho, 2020
+2021;Slovenia;SVN;Slovenia;Julho, 2020
+2021;Spain;ESP;Spain;Julho, 2020
+2021;Sweden;SWE;Sweden;Julho, 2020
+2021;Switzerland;CHE;Switzerland;Julho, 2020
+2021;Thailand;THA;Thailand;Julho, 2020
+2021;Turkey;TUR;Türkiye;Julho, 2020
+2021;Uganda;UGA;Uganda;Julho, 2020
+2021;Ukraine;UKR;Ukraine;Julho, 2020
+2021;United Arab Emirates;ARE;United Arab Emirates;Julho, 2020
+2021;United Kingdom;GBR;United Kingdom;Julho, 2020
+2021;United Republic of Tanzania;TZA;United Republic of Tanzania;Julho, 2020
+2021;United States;USA;United States;Julho, 2020
+2021;Zambia;ZMB;Zambia;Julho, 2020
+2022;Afghanistan;AFG;Afghanistan;Setembro, 2021
+2022;Albania;ALB;Albania;Setembro, 2021
+2022;Armenia;ARM;Armenia;Setembro, 2021
+2022;Australia;AUS;Australia;Setembro, 2021
+2022;Austria;AUT;Austria;Setembro, 2021
+2022;Azerbaijan;AZE;Azerbaijan;Setembro, 2021
+2022;Bahamas;BHS;Bahamas;Setembro, 2021
+2022;Barbados;BRB;Barbados;Setembro, 2021
+2022;Belgium;BEL;Belgium;Setembro, 2021
+2022;Belize;BLZ;Belize;Setembro, 2021
+2022;Benin;BEN;Benin;Setembro, 2021
+2022;Bosnia and Herzegovina;BIH;Bosnia and Herzegovina;Setembro, 2021
+2022;Botswana;BWA;Botswana;Setembro, 2021
+2022;Bulgaria;BGR;Bulgaria;Setembro, 2021
+2022;Burkina Faso;BFA;Burkina Faso;Setembro, 2021
+2022;Cameroon;CMR;Cameroon;Setembro, 2021
+2022;Canada;CAN;Canada;Setembro, 2021
+2022;Cook Islands;COK;Cook Islands;Setembro, 2021
+2022;Costa Rica;CRI;Costa Rica;Setembro, 2021
+2022;Côte d’Ivoire;CIV;Côte d'Ivoire;Setembro, 2021
+2022;Croatia;HRV;Croatia;Setembro, 2021
+2022;Cyprus;CYP;Cyprus;Setembro, 2021
+2022;Czechia;CZE;Czechia;Setembro, 2021
+2022;Democratic Republic of the Congo;COD;Democratic Republic of the Congo;Setembro, 2021
+2022;Denmark;DNK;Denmark;Setembro, 2021
+2022;Dominican Republic;DOM;Dominican Republic;Setembro, 2021
+2022;El Salvador;SLV;El Salvador;Setembro, 2021
+2022;Equatorial Guinea;GNQ;Equatorial Guinea;Setembro, 2021
+2022;Estonia;EST;Estonia;Setembro, 2021
+2022;Finland;FIN;Finland;Setembro, 2021
+2022;France;FRA;France;Setembro, 2021
+2022;Gabon;GAB;Gabon;Setembro, 2021
+2022;Gambia;GMB;Gambia;Setembro, 2021
+2022;Georgia;GEO;Georgia;Setembro, 2021
+2022;Germany;DEU;Germany;Setembro, 2021
+2022;Ghana;GHA;Ghana;Setembro, 2021
+2022;Greece;GRC;Greece;Setembro, 2021
+2022;Grenada;GRD;Grenada;Setembro, 2021
+2022;Guatemala;GTM;Guatemala;Setembro, 2021
+2022;Guyana;GUY;Guyana;Setembro, 2021
+2022;Honduras;HND;Honduras;Setembro, 2021
+2022;Hungary;HUN;Hungary;Setembro, 2021
+2022;Iceland;ISL;Iceland;Setembro, 2021
+2022;Indonesia;IDN;Indonesia;Setembro, 2021
+2022;Ireland;IRL;Ireland;Setembro, 2021
+2022;Israel;ISR;Israel;Setembro, 2021
+2022;Italy;ITA;Italy;Setembro, 2021
+2022;Jamaica;JAM;Jamaica;Setembro, 2021
+2022;Japan;JPN;Japan;Setembro, 2021
+2022;Kazakhstan;KAZ;Kazakhstan;Setembro, 2021
+2022;Kenya;KEN;Kenya;Setembro, 2021
+2022;Kiribati;KIR;Kiribati;Setembro, 2021
+2022;Latvia;LVA;Latvia;Setembro, 2021
+2022;Lithuania;LTU;Lithuania;Setembro, 2021
+2022;Luxembourg;LUX;Luxembourg;Setembro, 2021
+2022;Madagascar;MDG;Madagascar;Setembro, 2021
+2022;Malaysia;MYS;Malaysia;Setembro, 2021
+2022;Mali;MLI;Mali;Setembro, 2021
+2022;Malta;MLT;Malta;Setembro, 2021
+2022;Marshall Islands;MHL;Marshall Islands;Setembro, 2021
+2022;Mexico;MEX;Mexico;Setembro, 2021
+2022;Monaco;MCO;Monaco;Setembro, 2021
+2022;Montenegro;MNE;Montenegro;Setembro, 2021
+2022;Namibia;NAM;Namibia;Setembro, 2021
+2022;Nauru;NRU;Nauru;Setembro, 2021
+2022;Netherlands;NLD;Netherlands;Setembro, 2021
+2022;New Zealand;NZL;New Zealand;Setembro, 2021
+2022;Nigeria;NGA;Nigeria;Setembro, 2021
+2022;North Macedonia;MKD;North Macedonia;Setembro, 2021
+2022;Norway;NOR;Norway;Setembro, 2021
+2022;Oman;OMN;Oman;Setembro, 2021
+2022;Palau;PLW;Palau;Setembro, 2021
+2022;Papua New Guinea;PNG;Papua New Guinea;Setembro, 2021
+2022;Philippines;PHL;Philippines;Setembro, 2021
+2022;Poland;POL;Poland;Setembro, 2021
+2022;Portugal;PRT;Portugal;Setembro, 2021
+2022;Qatar;QAT;Qatar;Setembro, 2021
+2022;Republic of Korea;KOR;Republic of Korea;Setembro, 2021
+2022;Republic of Moldova;MDA;Republic of Moldova;Setembro, 2021
+2022;Romania;ROU;Romania;Setembro, 2021
+2022;Rwanda;RWA;Rwanda;Setembro, 2021
+2022;San Marino;SMR;San Marino;Setembro, 2021
+2022;Saint Kitts and Nevis;KNA;Saint Kitts and Nevis;Setembro, 2021
+2022;Saudi Arabia;SAU;Saudi Arabia;Setembro, 2021
+2022;Serbia;SRB;Serbia;Setembro, 2021
+2022;Singapore;SGP;Singapore;Setembro, 2021
+2022;Slovakia;SVK;Slovakia;Setembro, 2021
+2022;Slovenia;SVN;Slovenia;Setembro, 2021
+2022;South Sudan;SSD;South Sudan;Setembro, 2021
+2022;Spain;ESP;Spain;Setembro, 2021
+2022;Suriname;SUR;Suriname;Setembro, 2021
+2022;Sweden;SWE;Sweden;Setembro, 2021
+2022;Switzerland;CHE;Switzerland;Setembro, 2021
+2022;Thailand;THA;Thailand;Setembro, 2021
+2022;Tonga;TON;Tonga;Setembro, 2021
+2022;Trinidad and Tobago;TTO;Trinidad and Tobago;Setembro, 2021
+2022;Turkey;TUR;Türkiye;Setembro, 2021
+2022;Tuvalu;TUV;Tuvalu;Setembro, 2021
+2022;Uganda;UGA;Uganda;Setembro, 2021
+2022;Ukraine;UKR;Ukraine;Setembro, 2021
+2022;United Arab Emirates;ARE;United Arab Emirates;Setembro, 2021
+2022;United Kingdom;GBR;United Kingdom;Setembro, 2021
+2022;United Republic of Tanzania;TZA;United Republic of Tanzania;Setembro, 2021
+2022;United States;USA;United States;Setembro, 2021
+2022;Uruguay;URY;Uruguay;Setembro, 2021
+2022;Vanuatu;VUT;Vanuatu;Setembro, 2021
+2022;Zambia;ZMB;Zambia;Setembro, 2021
+2023;Afghanistan;AFG;Afghanistan;3ª edição, publicada em 1º de agosto de 2022
+2023;Albania;ALB;Albania;3ª edição, publicada em 1º de agosto de 2022
+2023;Armenia;ARM;Armenia;3ª edição, publicada em 1º de agosto de 2022
+2023;Australia;AUS;Australia;3ª edição, publicada em 1º de agosto de 2022
+2023;Austria;AUT;Austria;3ª edição, publicada em 1º de agosto de 2022
+2023;Azerbaijan;AZE;Azerbaijan;3ª edição, publicada em 1º de agosto de 2022
+2023;Bahamas;BHS;Bahamas;3ª edição, publicada em 1º de agosto de 2022
+2023;Barbados;BRB;Barbados;3ª edição, publicada em 1º de agosto de 2022
+2023;Belgium;BEL;Belgium;3ª edição, publicada em 1º de agosto de 2022
+2023;Belize;BLZ;Belize;3ª edição, publicada em 1º de agosto de 2022
+2023;Benin;BEN;Benin;3ª edição, publicada em 1º de agosto de 2022
+2023;Bosnia and Herzegovina;BIH;Bosnia and Herzegovina;3ª edição, publicada em 1º de agosto de 2022
+2023;Botswana;BWA;Botswana;3ª edição, publicada em 1º de agosto de 2022
+2023;Bulgaria;BGR;Bulgaria;3ª edição, publicada em 1º de agosto de 2022
+2023;Burkina Faso;BFA;Burkina Faso;3ª edição, publicada em 1º de agosto de 2022
+2023;Cambodia;KHM;Cambodia;3ª edição, publicada em 1º de agosto de 2022
+2023;Cameroon;CMR;Cameroon;3ª edição, publicada em 1º de agosto de 2022
+2023;Canada;CAN;Canada;3ª edição, publicada em 1º de agosto de 2022
+2023;Cook Islands;COK;Cook Islands;3ª edição, publicada em 1º de agosto de 2022
+2023;Costa Rica;CRI;Costa Rica;3ª edição, publicada em 1º de agosto de 2022
+2023;Côte d’Ivoire;CIV;Côte d'Ivoire;3ª edição, publicada em 1º de agosto de 2022
+2023;Croatia;HRV;Croatia;3ª edição, publicada em 1º de agosto de 2022
+2023;Cuba;CUB;Cuba;3ª edição, publicada em 1º de agosto de 2022
+2023;Cyprus;CYP;Cyprus;3ª edição, publicada em 1º de agosto de 2022
+2023;Czechia;CZE;Czechia;3ª edição, publicada em 1º de agosto de 2022
+2023;Democratic Republic of the Congo;COD;Democratic Republic of the Congo;3ª edição, publicada em 1º de agosto de 2022
+2023;Denmark;DNK;Denmark;3ª edição, publicada em 1º de agosto de 2022
+2023;Dominican Republic;DOM;Dominican Republic;3ª edição, publicada em 1º de agosto de 2022
+2023;El Salvador;SLV;El Salvador;3ª edição, publicada em 1º de agosto de 2022
+2023;Equatorial Guinea;GNQ;Equatorial Guinea;3ª edição, publicada em 1º de agosto de 2022
+2023;Estonia;EST;Estonia;3ª edição, publicada em 1º de agosto de 2022
+2023;Finland;FIN;Finland;3ª edição, publicada em 1º de agosto de 2022
+2023;France;FRA;France;3ª edição, publicada em 1º de agosto de 2022
+2023;Gabon;GAB;Gabon;3ª edição, publicada em 1º de agosto de 2022
+2023;Gambia;GMB;Gambia;3ª edição, publicada em 1º de agosto de 2022
+2023;Georgia;GEO;Georgia;3ª edição, publicada em 1º de agosto de 2022
+2023;Germany;DEU;Germany;3ª edição, publicada em 1º de agosto de 2022
+2023;Ghana;GHA;Ghana;3ª edição, publicada em 1º de agosto de 2022
+2023;Greece;GRC;Greece;3ª edição, publicada em 1º de agosto de 2022
+2023;Grenada;GRD;Grenada;3ª edição, publicada em 1º de agosto de 2022
+2023;Guatemala;GTM;Guatemala;3ª edição, publicada em 1º de agosto de 2022
+2023;Guyana;GUY;Guyana;3ª edição, publicada em 1º de agosto de 2022
+2023;Honduras;HND;Honduras;3ª edição, publicada em 1º de agosto de 2022
+2023;Hungary;HUN;Hungary;3ª edição, publicada em 1º de agosto de 2022
+2023;Iceland;ISL;Iceland;3ª edição, publicada em 1º de agosto de 2022
+2023;Indonesia;IDN;Indonesia;3ª edição, publicada em 1º de agosto de 2022
+2023;Iraq;IRQ;Iraq;3ª edição, publicada em 1º de agosto de 2022
+2023;Ireland;IRL;Ireland;3ª edição, publicada em 1º de agosto de 2022
+2023;Israel;ISR;Israel;3ª edição, publicada em 1º de agosto de 2022
+2023;Italy;ITA;Italy;3ª edição, publicada em 1º de agosto de 2022
+2023;Jamaica;JAM;Jamaica;3ª edição, publicada em 1º de agosto de 2022
+2023;Japan;JPN;Japan;3ª edição, publicada em 1º de agosto de 2022
+2023;Kazakhstan;KAZ;Kazakhstan;3ª edição, publicada em 1º de agosto de 2022
+2023;Kenya;KEN;Kenya;3ª edição, publicada em 1º de agosto de 2022
+2023;Kiribati;KIR;Kiribati;3ª edição, publicada em 1º de agosto de 2022
+2023;Latvia;LVA;Latvia;3ª edição, publicada em 1º de agosto de 2022
+2023;Lithuania;LTU;Lithuania;3ª edição, publicada em 1º de agosto de 2022
+2023;Luxembourg;LUX;Luxembourg;3ª edição, publicada em 1º de agosto de 2022
+2023;Madagascar;MDG;Madagascar;3ª edição, publicada em 1º de agosto de 2022
+2023;Maldives;MDV;Maldives;3ª edição, publicada em 1º de agosto de 2022
+2023;Malaysia;MYS;Malaysia;3ª edição, publicada em 1º de agosto de 2022
+2023;Mali;MLI;Mali;3ª edição, publicada em 1º de agosto de 2022
+2023;Malta;MLT;Malta;3ª edição, publicada em 1º de agosto de 2022
+2023;Marshall Islands;MHL;Marshall Islands;3ª edição, publicada em 1º de agosto de 2022
+2023;Mexico;MEX;Mexico;3ª edição, publicada em 1º de agosto de 2022
+2023;Micronesia (Federated States of);FSM;Micronesia (Federated States of);3ª edição, publicada em 1º de agosto de 2022
+2023;Monaco;MCO;Monaco;3ª edição, publicada em 1º de agosto de 2022
+2023;Montenegro;MNE;Montenegro;3ª edição, publicada em 1º de agosto de 2022
+2023;Namibia;NAM;Namibia;3ª edição, publicada em 1º de agosto de 2022
+2023;Nauru;NRU;Nauru;3ª edição, publicada em 1º de agosto de 2022
+2023;Netherlands;NLD;Netherlands;3ª edição, publicada em 1º de agosto de 2022
+2023;New Zealand;NZL;New Zealand;3ª edição, publicada em 1º de agosto de 2022
+2023;Nigeria;NGA;Nigeria;3ª edição, publicada em 1º de agosto de 2022
+2023;North Macedonia;MKD;North Macedonia;3ª edição, publicada em 1º de agosto de 2022
+2023;Norway;NOR;Norway;3ª edição, publicada em 1º de agosto de 2022
+2023;Oman;OMN;Oman;3ª edição, publicada em 1º de agosto de 2022
+2023;Palau;PLW;Palau;3ª edição, publicada em 1º de agosto de 2022
+2023;Papua New Guinea;PNG;Papua New Guinea;3ª edição, publicada em 1º de agosto de 2022
+2023;Philippines;PHL;Philippines;3ª edição, publicada em 1º de agosto de 2022
+2023;Poland;POL;Poland;3ª edição, publicada em 1º de agosto de 2022
+2023;Portugal;PRT;Portugal;3ª edição, publicada em 1º de agosto de 2022
+2023;Qatar;QAT;Qatar;3ª edição, publicada em 1º de agosto de 2022
+2023;Republic of Korea;KOR;Republic of Korea;3ª edição, publicada em 1º de agosto de 2022
+2023;Republic of Moldova;MDA;Republic of Moldova;3ª edição, publicada em 1º de agosto de 2022
+2023;Romania;ROU;Romania;3ª edição, publicada em 1º de agosto de 2022
+2023;Rwanda;RWA;Rwanda;3ª edição, publicada em 1º de agosto de 2022
+2023;San Marino;SMR;San Marino;3ª edição, publicada em 1º de agosto de 2022
+2023;Saint Kitts and Nevis;KNA;Saint Kitts and Nevis;3ª edição, publicada em 1º de agosto de 2022
+2023;Saint Vincent and the Grenadines;VCT;Saint Vincent and the Grenadines;3ª edição, publicada em 1º de agosto de 2022
+2023;Saudi Arabia;SAU;Saudi Arabia;3ª edição, publicada em 1º de agosto de 2022
+2023;Serbia;SRB;Serbia;3ª edição, publicada em 1º de agosto de 2022
+2023;Singapore;SGP;Singapore;3ª edição, publicada em 1º de agosto de 2022
+2023;Slovakia;SVK;Slovakia;3ª edição, publicada em 1º de agosto de 2022
+2023;Slovenia;SVN;Slovenia;3ª edição, publicada em 1º de agosto de 2022
+2023;South Sudan;SSD;South Sudan;3ª edição, publicada em 1º de agosto de 2022
+2023;Spain;ESP;Spain;3ª edição, publicada em 1º de agosto de 2022
+2023;Suriname;SUR;Suriname;3ª edição, publicada em 1º de agosto de 2022
+2023;Sweden;SWE;Sweden;3ª edição, publicada em 1º de agosto de 2022
+2023;Switzerland;CHE;Switzerland;3ª edição, publicada em 1º de agosto de 2022
+2023;Thailand;THA;Thailand;3ª edição, publicada em 1º de agosto de 2022
+2023;Timor-Leste;TLS;Timor-Leste;3ª edição, publicada em 1º de agosto de 2022
+2023;Tonga;TON;Tonga;3ª edição, publicada em 1º de agosto de 2022
+2023;Trinidad and Tobago;TTO;Trinidad and Tobago;3ª edição, publicada em 1º de agosto de 2022
+2023;Turkey;TUR;Türkiye;3ª edição, publicada em 1º de agosto de 2022
+2023;Tuvalu;TUV;Tuvalu;3ª edição, publicada em 1º de agosto de 2022
+2023;Uganda;UGA;Uganda;3ª edição, publicada em 1º de agosto de 2022
+2023;Ukraine;UKR;Ukraine;3ª edição, publicada em 1º de agosto de 2022
+2023;United Arab Emirates;ARE;United Arab Emirates;3ª edição, publicada em 1º de agosto de 2022
+2023;United Kingdom;GBR;United Kingdom;3ª edição, publicada em 1º de agosto de 2022
+2023;United Republic of Tanzania;TZA;United Republic of Tanzania;3ª edição, publicada em 1º de agosto de 2022
+2023;United States;USA;United States;3ª edição, publicada em 1º de agosto de 2022
+2023;Uruguay;URY;Uruguay;3ª edição, publicada em 1º de agosto de 2022
+2023;Vanuatu;VUT;Vanuatu;3ª edição, publicada em 1º de agosto de 2022
+2023;Zambia;ZMB;Zambia;3ª edição, publicada em 1º de agosto de 2022
+2023;Zimbabwe;ZWE;Zimbabwe;3ª edição, publicada em 1º de agosto de 2022
+2024;Afghanistan;AFG;Afghanistan;Outubro, 2023
+2024;Albania;ALB;Albania;Outubro, 2023
+2024;Antigua and Barbuda;ATG;Antigua and Barbuda;Outubro, 2023
+2024;Armenia;ARM;Armenia;Outubro, 2023
+2024;Australia;AUS;Australia;Outubro, 2023
+2024;Austria;AUT;Austria;Outubro, 2023
+2024;Azerbaijan;AZE;Azerbaijan;Outubro, 2023
+2024;Bahamas;BHS;Bahamas;Outubro, 2023
+2024;Bahrain;BHR;Bahrain;Outubro, 2023
+2024;Barbados;BRB;Barbados;Outubro, 2023
+2024;Belgium;BEL;Belgium;Outubro, 2023
+2024;Belize;BLZ;Belize;Outubro, 2023
+2024;Benin;BEN;Benin;Outubro, 2023
+2024;Bosnia and Herzegovina;BIH;Bosnia and Herzegovina;Outubro, 2023
+2024;Botswana;BWA;Botswana;Outubro, 2023
+2024;Bulgaria;BGR;Bulgaria;Outubro, 2023
+2024;Burkina Faso;BFA;Burkina Faso;Outubro, 2023
+2024;Cambodia;KHM;Cambodia;Outubro, 2023
+2024;Cameroon;CMR;Cameroon;Outubro, 2023
+2024;Canada;CAN;Canada;Outubro, 2023
+2024;Cook Islands;COK;Cook Islands;Outubro, 2023
+2024;Costa Rica;CRI;Costa Rica;Outubro, 2023
+2024;Côte d'Ivoire;CIV;Côte d'Ivoire;Outubro, 2023
+2024;Croatia;HRV;Croatia;Outubro, 2023
+2024;Cuba;CUB;Cuba;Outubro, 2023
+2024;Cyprus;CYP;Cyprus;Outubro, 2023
+2024;Czechia;CZE;Czechia;Outubro, 2023
+2024;Democratic Republic of the Congo;COD;Democratic Republic of the Congo;Outubro, 2023
+2024;Denmark;DNK;Denmark;Outubro, 2023
+2024;Dominican Republic;DOM;Dominican Republic;Outubro, 2023
+2024;Ecuador;ECU;Ecuador;Outubro, 2023
+2024;El Salvador;SLV;El Salvador;Outubro, 2023
+2024;Equatorial Guinea;GNQ;Equatorial Guinea;Outubro, 2023
+2024;Estonia;EST;Estonia;Outubro, 2023
+2024;Finland;FIN;Finland;Outubro, 2023
+2024;France;FRA;France;Outubro, 2023
+2024;Gabon;GAB;Gabon;Outubro, 2023
+2024;Gambia;GMB;Gambia;Outubro, 2023
+2024;Georgia;GEO;Georgia;Outubro, 2023
+2024;Germany;DEU;Germany;Outubro, 2023
+2024;Ghana;GHA;Ghana;Outubro, 2023
+2024;Greece;GRC;Greece;Outubro, 2023
+2024;Grenada;GRD;Grenada;Outubro, 2023
+2024;Guatemala;GTM;Guatemala;Outubro, 2023
+2024;Guyana;GUY;Guyana;Outubro, 2023
+2024;Haiti;HTI;Haiti;Outubro, 2023
+2024;Honduras;HND;Honduras;Outubro, 2023
+2024;Hungary;HUN;Hungary;Outubro, 2023
+2024;Iceland;ISL;Iceland;Outubro, 2023
+2024;Indonesia;IDN;Indonesia;Outubro, 2023
+2024;Iraq;IRQ;Iraq;Outubro, 2023
+2024;Ireland;IRL;Ireland;Outubro, 2023
+2024;Israel;ISR;Israel;Outubro, 2023
+2024;Italy;ITA;Italy;Outubro, 2023
+2024;Jamaica;JAM;Jamaica;Outubro, 2023
+2024;Japan;JPN;Japan;Outubro, 2023
+2024;Kazakhstan;KAZ;Kazakhstan;Outubro, 2023
+2024;Kenya;KEN;Kenya;Outubro, 2023
+2024;Kiribati;KIR;Kiribati;Outubro, 2023
+2024;Kuwait;KWT;Kuwait;Outubro, 2023
+2024;Latvia;LVA;Latvia;Outubro, 2023
+2024;Lithuania;LTU;Lithuania;Outubro, 2023
+2024;Luxembourg;LUX;Luxembourg;Outubro, 2023
+2024;Madagascar;MDG;Madagascar;Outubro, 2023
+2024;Malawi;MWI;Malawi;Outubro, 2023
+2024;Malaysia;MYS;Malaysia;Outubro, 2023
+2024;Maldives;MDV;Maldives;Outubro, 2023
+2024;Mali;MLI;Mali;Outubro, 2023
+2024;Malta;MLT;Malta;Outubro, 2023
+2024;Marshall Islands;MHL;Marshall Islands;Outubro, 2023
+2024;Mauritius;MUS;Mauritius;Outubro, 2023
+2024;Mexico;MEX;Mexico;Outubro, 2023
+2024;Micronesia (Federated States of);FSM;Micronesia (Federated States of);Outubro, 2023
+2024;Monaco;MCO;Monaco;Outubro, 2023
+2024;Montenegro;MNE;Montenegro;Outubro, 2023
+2024;Namibia;NAM;Namibia;Outubro, 2023
+2024;Nauru;NRU;Nauru;Outubro, 2023
+2024;Netherlands;NLD;Netherlands;Outubro, 2023
+2024;New Zealand;NZL;New Zealand;Outubro, 2023
+2024;Nigeria;NGA;Nigeria;Outubro, 2023
+2024;North Macedonia;MKD;North Macedonia;Outubro, 2023
+2024;Norway;NOR;Norway;Outubro, 2023
+2024;Oman;OMN;Oman;Outubro, 2023
+2024;Palau;PLW;Palau;Outubro, 2023
+2024;Papua New Guinea;PNG;Papua New Guinea;Outubro, 2023
+2024;Philippines;PHL;Philippines;Outubro, 2023
+2024;Poland;POL;Poland;Outubro, 2023
+2024;Portugal;PRT;Portugal;Outubro, 2023
+2024;Qatar;QAT;Qatar;Outubro, 2023
+2024;Republic of Korea;KOR;Republic of Korea;Outubro, 2023
+2024;Republic of Moldova;MDA;Republic of Moldova;Outubro, 2023
+2024;Romania;ROU;Romania;Outubro, 2023
+2024;Rwanda;RWA;Rwanda;Outubro, 2023
+2024;Saint Kitts and Nevis;KNA;Saint Kitts and Nevis;Outubro, 2023
+2024;Saint Vincent and the Grenadines;VCT;Saint Vincent and the Grenadines;Outubro, 2023
+2024;Samoa;WSM;Samoa;Outubro, 2023
+2024;San Marino;SMR;San Marino;Outubro, 2023
+2024;Saudi Arabia;SAU;Saudi Arabia;Outubro, 2023
+2024;Serbia;SRB;Serbia;Outubro, 2023
+2024;Seychelles;SYC;Seychelles;Outubro, 2023
+2024;Sierra Leone;SLE;Sierra Leone;Outubro, 2023
+2024;Singapore;SGP;Singapore;Outubro, 2023
+2024;Slovakia;SVK;Slovakia;Outubro, 2023
+2024;Slovenia;SVN;Slovenia;Outubro, 2023
+2024;Solomon Islands;SLB;Solomon Islands;Outubro, 2023
+2024;South Sudan;SSD;South Sudan;Outubro, 2023
+2024;Spain;ESP;Spain;Outubro, 2023
+2024;Suriname;SUR;Suriname;Outubro, 2023
+2024;Sweden;SWE;Sweden;Outubro, 2023
+2024;Switzerland;CHE;Switzerland;Outubro, 2023
+2024;Thailand;THA;Thailand;Outubro, 2023
+2024;Timor-Leste;TLS;Timor-Leste;Outubro, 2023
+2024;Tonga;TON;Tonga;Outubro, 2023
+2024;Trinidad and Tobago;TTO;Trinidad and Tobago;Outubro, 2023
+2024;Türkiye;TUR;Türkiye;Outubro, 2023
+2024;Tuvalu;TUV;Tuvalu;Outubro, 2023
+2024;Uganda;UGA;Uganda;Outubro, 2023
+2024;Ukraine;UKR;Ukraine;Outubro, 2023
+2024;United Arab Emirates;ARE;United Arab Emirates;Outubro, 2023
+2024;United Kingdom;GBR;United Kingdom;Outubro, 2023
+2024;United Republic of Tanzania;TZA;United Republic of Tanzania;Outubro, 2023
+2024;United States;USA;United States;Outubro, 2023
+2024;Uruguay;URY;Uruguay;Outubro, 2023
+2024;Vanuatu;VUT;Vanuatu;Outubro, 2023
+2024;Zambia;ZMB;Zambia;Outubro, 2023
+2024;Zimbabwe;ZWE;Zimbabwe;Outubro, 2023
+2025;Afghanistan;AFG;Afghanistan;Setembro, 2024
+2025;Albania;ALB;Albania;Setembro, 2024
+2025;Antigua and Barbuda;ATG;Antigua and Barbuda;Setembro, 2024
+2025;Armenia;ARM;Armenia;Setembro, 2024
+2025;Australia;AUS;Australia;Setembro, 2024
+2025;Austria;AUT;Austria;Setembro, 2024
+2025;Azerbaijan;AZE;Azerbaijan;Setembro, 2024
+2025;Bahamas;BHS;Bahamas;Setembro, 2024
+2025;Bahrain;BHR;Bahrain;Setembro, 2024
+2025;Barbados;BRB;Barbados;Setembro, 2024
+2025;Belgium;BEL;Belgium;Setembro, 2024
+2025;Belize;BLZ;Belize;Setembro, 2024
+2025;Benin;BEN;Benin;Setembro, 2024
+2025;Bosnia and Herzegovina;BIH;Bosnia and Herzegovina;Setembro, 2024
+2025;Botswana;BWA;Botswana;Setembro, 2024
+2025;Bulgaria;BGR;Bulgaria;Setembro, 2024
+2025;Burkina Faso;BFA;Burkina Faso;Setembro, 2024
+2025;Cambodia;KHM;Cambodia;Setembro, 2024
+2025;Cameroon;CMR;Cameroon;Setembro, 2024
+2025;Canada;CAN;Canada;Setembro, 2024
+2025;Comoros;COM;Comoros;Setembro, 2024
+2025;Cook Islands;COK;Cook Islands;Setembro, 2024
+2025;Costa Rica;CRI;Costa Rica;Setembro, 2024
+2025;Côte d'Ivoire;CIV;Côte d'Ivoire;Setembro, 2024
+2025;Croatia;HRV;Croatia;Setembro, 2024
+2025;Cuba;CUB;Cuba;Setembro, 2024
+2025;Cyprus;CYP;Cyprus;Setembro, 2024
+2025;Czechia;CZE;Czechia;Setembro, 2024
+2025;Democratic Republic of the Congo;COD;Democratic Republic of the Congo;Setembro, 2024
+2025;Denmark;DNK;Denmark;Setembro, 2024
+2025;Dominican Republic;DOM;Dominican Republic;Setembro, 2024
+2025;Ecuador;ECU;Ecuador;Setembro, 2024
+2025;El Salvador;SLV;El Salvador;Setembro, 2024
+2025;Equatorial Guinea;GNQ;Equatorial Guinea;Setembro, 2024
+2025;Estonia;EST;Estonia;Setembro, 2024
+2025;Finland;FIN;Finland;Setembro, 2024
+2025;France;FRA;France;Setembro, 2024
+2025;Gabon;GAB;Gabon;Setembro, 2024
+2025;Gambia;GMB;Gambia;Setembro, 2024
+2025;Georgia;GEO;Georgia;Setembro, 2024
+2025;Germany;DEU;Germany;Setembro, 2024
+2025;Ghana;GHA;Ghana;Setembro, 2024
+2025;Greece;GRC;Greece;Setembro, 2024
+2025;Grenada;GRD;Grenada;Setembro, 2024
+2025;Guatemala;GTM;Guatemala;Setembro, 2024
+2025;Guyana;GUY;Guyana;Setembro, 2024
+2025;Haiti;HTI;Haiti;Setembro, 2024
+2025;Honduras;HND;Honduras;Setembro, 2024
+2025;Hungary;HUN;Hungary;Setembro, 2024
+2025;Iceland;ISL;Iceland;Setembro, 2024
+2025;Indonesia;IDN;Indonesia;Setembro, 2024
+2025;Iraq;IRQ;Iraq;Setembro, 2024
+2025;Ireland;IRL;Ireland;Setembro, 2024
+2025;Israel;ISR;Israel;Setembro, 2024
+2025;Italy;ITA;Italy;Setembro, 2024
+2025;Jamaica;JAM;Jamaica;Setembro, 2024
+2025;Japan;JPN;Japan;Setembro, 2024
+2025;Kazakhstan;KAZ;Kazakhstan;Setembro, 2024
+2025;Kenya;KEN;Kenya;Setembro, 2024
+2025;Kiribati;KIR;Kiribati;Setembro, 2024
+2025;Kuwait;KWT;Kuwait;Setembro, 2024
+2025;Latvia;LVA;Latvia;Setembro, 2024
+2025;Lithuania;LTU;Lithuania;Setembro, 2024
+2025;Luxembourg;LUX;Luxembourg;Setembro, 2024
+2025;Madagascar;MDG;Madagascar;Setembro, 2024
+2025;Malawi;MWI;Malawi;Setembro, 2024
+2025;Malaysia;MYS;Malaysia;Setembro, 2024
+2025;Maldives;MDV;Maldives;Setembro, 2024
+2025;Mali;MLI;Mali;Setembro, 2024
+2025;Malta;MLT;Malta;Setembro, 2024
+2025;Marshall Islands;MHL;Marshall Islands;Setembro, 2024
+2025;Mauritania;MRT;Mauritania;Setembro, 2024
+2025;Mauritius;MUS;Mauritius;Setembro, 2024
+2025;Mexico;MEX;Mexico;Setembro, 2024
+2025;Micronesia (Federated States of);FSM;Micronesia (Federated States of);Setembro, 2024
+2025;Monaco;MCO;Monaco;Setembro, 2024
+2025;Montenegro;MNE;Montenegro;Setembro, 2024
+2025;Namibia;NAM;Namibia;Setembro, 2024
+2025;Nauru;NRU;Nauru;Setembro, 2024
+2025;Netherlands;NLD;Netherlands;Setembro, 2024
+2025;New Zealand;NZL;New Zealand;Setembro, 2024
+2025;Nigeria;NGA;Nigeria;Setembro, 2024
+2025;North Macedonia;MKD;North Macedonia;Setembro, 2024
+2025;Norway;NOR;Norway;Setembro, 2024
+2025;Oman;OMN;Oman;Setembro, 2024
+2025;Palau;PLW;Palau;Setembro, 2024
+2025;Papua New Guinea;PNG;Papua New Guinea;Setembro, 2024
+2025;Philippines;PHL;Philippines;Setembro, 2024
+2025;Poland;POL;Poland;Setembro, 2024
+2025;Portugal;PRT;Portugal;Setembro, 2024
+2025;Qatar;QAT;Qatar;Setembro, 2024
+2025;Republic of Korea;KOR;Republic of Korea;Setembro, 2024
+2025;Republic of Moldova;MDA;Republic of Moldova;Setembro, 2024
+2025;Romania;ROU;Romania;Setembro, 2024
+2025;Rwanda;RWA;Rwanda;Setembro, 2024
+2025;Saint Kitts and Nevis;KNA;Saint Kitts and Nevis;Setembro, 2024
+2025;Saint Lucia;LCA;Saint Lucia;Setembro, 2024
+2025;Saint Vincent and the Grenadines;VCT;Saint Vincent and the Grenadines;Setembro, 2024
+2025;Samoa;WSM;Samoa;Setembro, 2024
+2025;San Marino;SMR;San Marino;Setembro, 2024
+2025;Saudi Arabia;SAU;Saudi Arabia;Setembro, 2024
+2025;Serbia;SRB;Serbia;Setembro, 2024
+2025;Seychelles;SYC;Seychelles;Setembro, 2024
+2025;Sierra Leone;SLE;Sierra Leone;Setembro, 2024
+2025;Singapore;SGP;Singapore;Setembro, 2024
+2025;Slovakia;SVK;Slovakia;Setembro, 2024
+2025;Slovenia;SVN;Slovenia;Setembro, 2024
+2025;Solomon Islands;SLB;Solomon Islands;Setembro, 2024
+2025;South Sudan;SSD;South Sudan;Setembro, 2024
+2025;Spain;ESP;Spain;Setembro, 2024
+2025;Suriname;SUR;Suriname;Setembro, 2024
+2025;Sweden;SWE;Sweden;Setembro, 2024
+2025;Switzerland;CHE;Switzerland;Setembro, 2024
+2025;Thailand;THA;Thailand;Setembro, 2024
+2025;Timor-Leste;TLS;Timor-Leste;Setembro, 2024
+2025;Tonga;TON;Tonga;Setembro, 2024
+2025;Trinidad and Tobago;TTO;Trinidad and Tobago;Setembro, 2024
+2025;Türkiye;TUR;Türkiye;Setembro, 2024
+2025;Tuvalu;TUV;Tuvalu;Setembro, 2024
+2025;Uganda;UGA;Uganda;Setembro, 2024
+2025;Ukraine;UKR;Ukraine;Setembro, 2024
+2025;United Arab Emirates;ARE;United Arab Emirates;Setembro, 2024
+2025;United Kingdom;GBR;United Kingdom;Setembro, 2024
+2025;United Republic of Tanzania;TZA;United Republic of Tanzania;Setembro, 2024
+2025;United States;USA;United States;Setembro, 2024
+2025;Uruguay;URY;Uruguay;Setembro, 2024
+2025;Vanuatu;VUT;Vanuatu;Setembro, 2024
+2025;Zambia;ZMB;Zambia;Setembro, 2024
+2025;Zimbabwe;ZWE;Zimbabwe;Setembro, 2024
+2026;Afghanistan;AFG;Afghanistan;Julho, 2025
+2026;Albania;ALB;Albania;Julho, 2025
+2026;Antigua and Barbuda;ATG;Antigua and Barbuda;Julho, 2025
+2026;Armenia;ARM;Armenia;Julho, 2025
+2026;Australia;AUS;Australia;Julho, 2025
+2026;Austria;AUT;Austria;Julho, 2025
+2026;Azerbaijan;AZE;Azerbaijan;Julho, 2025
+2026;Bahamas;BHS;Bahamas;Julho, 2025
+2026;Bahrain;BHR;Bahrain;Julho, 2025
+2026;Barbados;BRB;Barbados;Julho, 2025
+2026;Belgium;BEL;Belgium;Julho, 2025
+2026;Belize;BLZ;Belize;Julho, 2025
+2026;Benin;BEN;Benin;Julho, 2025
+2026;Bosnia and Herzegovina;BIH;Bosnia and Herzegovina;Julho, 2025
+2026;Botswana;BWA;Botswana;Julho, 2025
+2026;Bulgaria;BGR;Bulgaria;Julho, 2025
+2026;Burkina Faso;BFA;Burkina Faso;Julho, 2025
+2026;Cambodia;KHM;Cambodia;Julho, 2025
+2026;Cameroon;CMR;Cameroon;Julho, 2025
+2026;Canada;CAN;Canada;Julho, 2025
+2026;Comoros;COM;Comoros;Julho, 2025
+2026;Cook Islands;COK;Cook Islands;Julho, 2025
+2026;Costa Rica;CRI;Costa Rica;Julho, 2025
+2026;Côte d'Ivoire;CIV;Côte d'Ivoire;Julho, 2025
+2026;Croatia;HRV;Croatia;Julho, 2025
+2026;Cuba;CUB;Cuba;Julho, 2025
+2026;Cyprus;CYP;Cyprus;Julho, 2025
+2026;Czechia;CZE;Czechia;Julho, 2025
+2026;Democratic Republic of the Congo;COD;Democratic Republic of the Congo;Julho, 2025
+2026;Denmark;DNK;Denmark;Julho, 2025
+2026;Dominica;DMA;Dominica;Julho, 2025
+2026;Dominican Republic;DOM;Dominican Republic;Julho, 2025
+2026;Ecuador;ECU;Ecuador;Julho, 2025
+2026;El Salvador;SLV;El Salvador;Julho, 2025
+2026;Equatorial Guinea;GNQ;Equatorial Guinea;Julho, 2025
+2026;Estonia;EST;Estonia;Julho, 2025
+2026;Finland;FIN;Finland;Julho, 2025
+2026;France;FRA;France;Julho, 2025
+2026;Gabon;GAB;Gabon;Julho, 2025
+2026;Gambia;GMB;Gambia;Julho, 2025
+2026;Georgia;GEO;Georgia;Julho, 2025
+2026;Germany;DEU;Germany;Julho, 2025
+2026;Ghana;GHA;Ghana;Julho, 2025
+2026;Greece;GRC;Greece;Julho, 2025
+2026;Grenada;GRD;Grenada;Julho, 2025
+2026;Guatemala;GTM;Guatemala;Julho, 2025
+2026;Guyana;GUY;Guyana;Julho, 2025
+2026;Haiti;HTI;Haiti;Julho, 2025
+2026;Honduras;HND;Honduras;Julho, 2025
+2026;Hungary;HUN;Hungary;Julho, 2025
+2026;Iceland;ISL;Iceland;Julho, 2025
+2026;Indonesia;IDN;Indonesia;Julho, 2025
+2026;Iraq;IRQ;Iraq;Julho, 2025
+2026;Ireland;IRL;Ireland;Julho, 2025
+2026;Israel;ISR;Israel;Julho, 2025
+2026;Italy;ITA;Italy;Julho, 2025
+2026;Jamaica;JAM;Jamaica;Julho, 2025
+2026;Japan;JPN;Japan;Julho, 2025
+2026;Kazakhstan;KAZ;Kazakhstan;Julho, 2025
+2026;Kenya;KEN;Kenya;Julho, 2025
+2026;Kiribati;KIR;Kiribati;Julho, 2025
+2026;Kuwait;KWT;Kuwait;Julho, 2025
+2026;Latvia;LVA;Latvia;Julho, 2025
+2026;Lithuania;LTU;Lithuania;Julho, 2025
+2026;Luxembourg;LUX;Luxembourg;Julho, 2025
+2026;Madagascar;MDG;Madagascar;Julho, 2025
+2026;Malawi;MWI;Malawi;Julho, 2025
+2026;Malaysia;MYS;Malaysia;Julho, 2025
+2026;Maldives;MDV;Maldives;Julho, 2025
+2026;Mali;MLI;Mali;Julho, 2025
+2026;Malta;MLT;Malta;Julho, 2025
+2026;Marshall Islands;MHL;Marshall Islands;Julho, 2025
+2026;Mauritania;MRT;Mauritania;Julho, 2025
+2026;Mexico;MEX;Mexico;Julho, 2025
+2026;Micronesia (Federated States of);FSM;Micronesia (Federated States of);Julho, 2025
+2026;Monaco;MCO;Monaco;Julho, 2025
+2026;Montenegro;MNE;Montenegro;Julho, 2025
+2026;Namibia;NAM;Namibia;Julho, 2025
+2026;Nauru;NRU;Nauru;Julho, 2025
+2026;Netherlands;NLD;Netherlands;Julho, 2025
+2026;New Zealand;NZL;New Zealand;Julho, 2025
+2026;Nigeria;NGA;Nigeria;Julho, 2025
+2026;North Macedonia;MKD;North Macedonia;Julho, 2025
+2026;Norway;NOR;Norway;Julho, 2025
+2026;Oman;OMN;Oman;Julho, 2025
+2026;Palau;PLW;Palau;Julho, 2025
+2026;Papua New Guinea;PNG;Papua New Guinea;Julho, 2025
+2026;Philippines;PHL;Philippines;Julho, 2025
+2026;Poland;POL;Poland;Julho, 2025
+2026;Portugal;PRT;Portugal;Julho, 2025
+2026;Qatar;QAT;Qatar;Julho, 2025
+2026;Republic of Korea;KOR;Republic of Korea;Julho, 2025
+2026;Republic of Moldova;MDA;Republic of Moldova;Julho, 2025
+2026;Romania;ROU;Romania;Julho, 2025
+2026;Rwanda;RWA;Rwanda;Julho, 2025
+2026;Saint Kitts and Nevis;KNA;Saint Kitts and Nevis;Julho, 2025
+2026;Saint Lucia;LCA;Saint Lucia;Julho, 2025
+2026;Saint Vincent and the Grenadines;VCT;Saint Vincent and the Grenadines;Julho, 2025
+2026;Samoa;WSM;Samoa;Julho, 2025
+2026;San Marino;SMR;San Marino;Julho, 2025
+2026;Saudi Arabia;SAU;Saudi Arabia;Julho, 2025
+2026;Serbia;SRB;Serbia;Julho, 2025
+2026;Seychelles;SYC;Seychelles;Julho, 2025
+2026;Sierra Leone;SLE;Sierra Leone;Julho, 2025
+2026;Singapore;SGP;Singapore;Julho, 2025
+2026;Slovakia;SVK;Slovakia;Julho, 2025
+2026;Slovenia;SVN;Slovenia;Julho, 2025
+2026;Solomon Islands;SLB;Solomon Islands;Julho, 2025
+2026;South Sudan;SSD;South Sudan;Julho, 2025
+2026;Spain;ESP;Spain;Julho, 2025
+2026;Suriname;SUR;Suriname;Julho, 2025
+2026;Sweden;SWE;Sweden;Julho, 2025
+2026;Switzerland;CHE;Switzerland;Julho, 2025
+2026;Thailand;THA;Thailand;Julho, 2025
+2026;Timor-Leste;TLS;Timor-Leste;Julho, 2025
+2026;Tonga;TON;Tonga;Julho, 2025
+2026;Trinidad and Tobago;TTO;Trinidad and Tobago;Julho, 2025
+2026;Türkiye;TUR;Türkiye;Julho, 2025
+2026;Tuvalu;TUV;Tuvalu;Julho, 2025
+2026;Uganda;UGA;Uganda;Julho, 2025
+2026;Ukraine;UKR;Ukraine;Julho, 2025
+2026;United Arab Emirates;ARE;United Arab Emirates;Julho, 2025
+2026;United Kingdom;GBR;United Kingdom;Julho, 2025
+2026;United Republic of Tanzania;TZA;United Republic of Tanzania;Julho, 2025
+2026;United States;USA;United States;Julho, 2025
+2026;Uruguay;URY;Uruguay;Julho, 2025
+2026;Vanuatu;VUT;Vanuatu;Julho, 2025
+2026;Viet Nam;VNM;Viet Nam;Julho, 2025
+2026;Zambia;ZMB;Zambia;Julho, 2025
+2026;Zimbabwe;ZWE;Zimbabwe;Julho, 2025
+2027;Afghanistan;AFG;Afghanistan;Julho, 2026
+2027;Albania;ALB;Albania;Julho, 2026
+2027;Antigua and Barbuda;ATG;Antigua and Barbuda;Julho, 2026
+2027;Armenia;ARM;Armenia;Julho, 2026
+2027;Australia;AUS;Australia;Julho, 2026
+2027;Austria;AUT;Austria;Julho, 2026
+2027;Azerbaijan;AZE;Azerbaijan;Julho, 2026
+2027;Bahamas;BHS;Bahamas;Julho, 2026
+2027;Bahrain;BHR;Bahrain;Julho, 2026
+2027;Barbados;BRB;Barbados;Julho, 2026
+2027;Belgium;BEL;Belgium;Julho, 2026
+2027;Belize;BLZ;Belize;Julho, 2026
+2027;Benin;BEN;Benin;Julho, 2026
+2027;Bosnia and Herzegovina;BIH;Bosnia and Herzegovina;Julho, 2026
+2027;Botswana;BWA;Botswana;Julho, 2026
+2027;Brazil;BRA;Brazil;Julho, 2026
+2027;Bulgaria;BGR;Bulgaria;Julho, 2026
+2027;Burkina Faso;BFA;Burkina Faso;Julho, 2026
+2027;Cambodia;KHM;Cambodia;Julho, 2026
+2027;Cameroon;CMR;Cameroon;Julho, 2026
+2027;Canada;CAN;Canada;Julho, 2026
+2027;China;CHN;China;Julho, 2026
+2027;Comoros;COM;Comoros;Julho, 2026
+2027;Cook Islands;COK;Cook Islands;Julho, 2026
+2027;Costa Rica;CRI;Costa Rica;Julho, 2026
+2027;Côte d'Ivoire;CIV;Côte d'Ivoire;Julho, 2026
+2027;Croatia;HRV;Croatia;Julho, 2026
+2027;Cuba;CUB;Cuba;Julho, 2026
+2027;Cyprus;CYP;Cyprus;Julho, 2026
+2027;Czechia;CZE;Czechia;Julho, 2026
+2027;Democratic Republic of the Congo;COD;Democratic Republic of the Congo;Julho, 2026
+2027;Denmark;DNK;Denmark;Julho, 2026
+2027;Dominica;DMA;Dominica;Julho, 2026
+2027;Dominican Republic;DOM;Dominican Republic;Julho, 2026
+2027;Ecuador;ECU;Ecuador;Julho, 2026
+2027;El Salvador;SLV;El Salvador;Julho, 2026
+2027;Equatorial Guinea;GNQ;Equatorial Guinea;Julho, 2026
+2027;Estonia;EST;Estonia;Julho, 2026
+2027;Finland;FIN;Finland;Julho, 2026
+2027;France;FRA;France;Julho, 2026
+2027;Gabon;GAB;Gabon;Julho, 2026
+2027;Gambia;GMB;Gambia;Julho, 2026
+2027;Georgia;GEO;Georgia;Julho, 2026
+2027;Germany;DEU;Germany;Julho, 2026
+2027;Ghana;GHA;Ghana;Julho, 2026
+2027;Greece;GRC;Greece;Julho, 2026
+2027;Grenada;GRD;Grenada;Julho, 2026
+2027;Guatemala;GTM;Guatemala;Julho, 2026
+2027;Guyana;GUY;Guyana;Julho, 2026
+2027;Haiti;HTI;Haiti;Julho, 2026
+2027;Honduras;HND;Honduras;Julho, 2026
+2027;Hungary;HUN;Hungary;Julho, 2026
+2027;Iceland;ISL;Iceland;Julho, 2026
+2027;India;IND;India;Julho, 2026
+2027;Indonesia;IDN;Indonesia;Julho, 2026
+2027;Iraq;IRQ;Iraq;Julho, 2026
+2027;Ireland;IRL;Ireland;Julho, 2026
+2027;Israel;ISR;Israel;Julho, 2026
+2027;Italy;ITA;Italy;Julho, 2026
+2027;Jamaica;JAM;Jamaica;Julho, 2026
+2027;Japan;JPN;Japan;Julho, 2026
+2027;Kazakhstan;KAZ;Kazakhstan;Julho, 2026
+2027;Kenya;KEN;Kenya;Julho, 2026
+2027;Kiribati;KIR;Kiribati;Julho, 2026
+2027;Kuwait;KWT;Kuwait;Julho, 2026
+2027;Latvia;LVA;Latvia;Julho, 2026
+2027;Lithuania;LTU;Lithuania;Julho, 2026
+2027;Luxembourg;LUX;Luxembourg;Julho, 2026
+2027;Madagascar;MDG;Madagascar;Julho, 2026
+2027;Malawi;MWI;Malawi;Julho, 2026
+2027;Malaysia;MYS;Malaysia;Julho, 2026
+2027;Maldives;MDV;Maldives;Julho, 2026
+2027;Mali;MLI;Mali;Julho, 2026
+2027;Malta;MLT;Malta;Julho, 2026
+2027;Marshall Islands;MHL;Marshall Islands;Julho, 2026
+2027;Mauritania;MRT;Mauritania;Julho, 2026
+2027;Mexico;MEX;Mexico;Julho, 2026
+2027;Micronesia (Federated States of);FSM;Micronesia (Federated States of);Julho, 2026
+2027;Monaco;MCO;Monaco;Julho, 2026
+2027;Montenegro;MNE;Montenegro;Julho, 2026
+2027;Namibia;NAM;Namibia;Julho, 2026
+2027;Nauru;NRU;Nauru;Julho, 2026
+2027;Netherlands;NLD;Netherlands;Julho, 2026
+2027;New Zealand;NZL;New Zealand;Julho, 2026
+2027;Nigeria;NGA;Nigeria;Julho, 2026
+2027;North Macedonia;MKD;North Macedonia;Julho, 2026
+2027;Norway;NOR;Norway;Julho, 2026
+2027;Oman;OMN;Oman;Julho, 2026
+2027;Palau;PLW;Palau;Julho, 2026
+2027;Papua New Guinea;PNG;Papua New Guinea;Julho, 2026
+2027;Philippines;PHL;Philippines;Julho, 2026
+2027;Poland;POL;Poland;Julho, 2026
+2027;Portugal;PRT;Portugal;Julho, 2026
+2027;Qatar;QAT;Qatar;Julho, 2026
+2027;Republic of Korea;KOR;Republic of Korea;Julho, 2026
+2027;Republic of Moldova;MDA;Republic of Moldova;Julho, 2026
+2027;Romania;ROU;Romania;Julho, 2026
+2027;Russian Federation;RUS;Russian Federation;Julho, 2026
+2027;Rwanda;RWA;Rwanda;Julho, 2026
+2027;Saint Kitts and Nevis;KNA;Saint Kitts and Nevis;Julho, 2026
+2027;Saint Lucia;LCA;Saint Lucia;Julho, 2026
+2027;Saint Vincent and the Grenadines;VCT;Saint Vincent and the Grenadines;Julho, 2026
+2027;Samoa;WSM;Samoa;Julho, 2026
+2027;San Marino;SMR;San Marino;Julho, 2026
+2027;Saudi Arabia;SAU;Saudi Arabia;Julho, 2026
+2027;Serbia;SRB;Serbia;Julho, 2026
+2027;Seychelles;SYC;Seychelles;Julho, 2026
+2027;Sierra Leone;SLE;Sierra Leone;Julho, 2026
+2027;Singapore;SGP;Singapore;Julho, 2026
+2027;Slovakia;SVK;Slovakia;Julho, 2026
+2027;Slovenia;SVN;Slovenia;Julho, 2026
+2027;Solomon Islands;SLB;Solomon Islands;Julho, 2026
+2027;South Sudan;SSD;South Sudan;Julho, 2026
+2027;Spain;ESP;Spain;Julho, 2026
+2027;Suriname;SUR;Suriname;Julho, 2026
+2027;Sweden;SWE;Sweden;Julho, 2026
+2027;Switzerland;CHE;Switzerland;Julho, 2026
+2027;Thailand;THA;Thailand;Julho, 2026
+2027;Timor-Leste;TLS;Timor-Leste;Julho, 2026
+2027;Tonga;TON;Tonga;Julho, 2026
+2027;Trinidad and Tobago;TTO;Trinidad and Tobago;Julho, 2026
+2027;Türkiye;TUR;Türkiye;Julho, 2026
+2027;Tuvalu;TUV;Tuvalu;Julho, 2026
+2027;Uganda;UGA;Uganda;Julho, 2026
+2027;Ukraine;UKR;Ukraine;Julho, 2026
+2027;United Arab Emirates;ARE;United Arab Emirates;Julho, 2026
+2027;United Kingdom;GBR;United Kingdom;Julho, 2026
+2027;United Republic of Tanzania;TZA;United Republic of Tanzania;Julho, 2026
+2027;United States;USA;United States;Julho, 2026
+2027;Uruguay;URY;Uruguay;Julho, 2026
+2027;Vanuatu;VUT;Vanuatu;Julho, 2026
+2027;Viet Nam;VNM;Viet Nam;Julho, 2026
+2027;Zambia;ZMB;Zambia;Julho, 2026
+2027;Zimbabwe;ZWE;Zimbabwe;Julho, 2026

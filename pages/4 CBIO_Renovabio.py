@@ -17,7 +17,8 @@ cbio_data = pd.read_csv("data/processed/cbio_data.csv",sep=";",decimal=",",index
 cbio_data.index = pd.to_datetime(cbio_data.index)
 
 st.title("CBIO Renovabio")
-st.write(f"Fonte: B3 ({cbio_data.index.max().date()})")
+fonte_b3 = f"Fonte: B3, Séries Históricas de CBIO (dados até {cbio_data.index.max().strftime('%d/%m/%Y')})."
+st.write(fonte_b3)
 
 
 cbio_negociacoes = pd.read_csv("data/processed/cbio_negociacoes.csv",sep=";",decimal=",",index_col=0)
@@ -38,12 +39,12 @@ fig = go.Figure()
 fig.add_trace(go.Scatter(x=cbio_data.index, y=cbio_data["Aposentadoria"], mode='lines', name='Aposentadoria'))
 fig.add_trace(go.Scatter(x=cbio_data.index, y=cbio_data["Estoque"], mode='lines', name='Estoque',yaxis='y2'))
 
-fig.update_layout(title=f"Créditos de Descarbonização (CBIO) Negociados e Aposentados <br><sup>{cbio_data.index[0].date()} - {cbio_data.index[-1].date()}<sup>",
+fig.update_layout(title=f"Créditos de Descarbonização (CBIO): Aposentadoria e Estoque <br><sup>{cbio_data.index[0].date()} - {cbio_data.index[-1].date()}<sup>",
                     yaxis2=dict( overlaying='y', side='right'),
                     legend=dict(orientation="h", yanchor="bottom", y=1.01, xanchor="right", x=1))
 
 st.plotly_chart(fig, use_container_width=True)
-st.caption("O gráfico mostra a evolução mensal dos créditos de descarbonização (CBIOs) negociados e aposentados no âmbito do RenovaBio. A linha mais escura representa o volume mensal de CBIOs efetivamente aposentados, enquanto a linha mais clara indica o estoque disponível no mercado.")
+st.caption("O gráfico mostra a evolução dos créditos de descarbonização (CBIOs) aposentados e do estoque no âmbito do RenovaBio, na agregação escolhida ao lado. A linha mais escura representa o volume de CBIOs efetivamente aposentados (eixo à esquerda), enquanto a linha mais clara indica o estoque disponível no mercado (eixo à direita). " + fonte_b3)
 
 
 preco, receita = st.columns(2)
@@ -57,7 +58,7 @@ with preco:
                         legend=dict(orientation="h", yanchor="bottom", y=1.01, xanchor="right", x=1))
 
     st.plotly_chart(fig, use_container_width=True)
-    st.caption("O gráfico mostra a evolução do preço médio mensal dos créditos de descarbonização (CBIOs)")
+    st.caption("O gráfico mostra a evolução do preço médio dos créditos de descarbonização (CBIOs), na agregação escolhida ao lado. " + fonte_b3)
 
 with receita:
     fig = go.Figure()
@@ -68,5 +69,5 @@ with receita:
                         legend=dict(orientation="h", yanchor="bottom", y=1.01, xanchor="right", x=1))
 
     st.plotly_chart(fig, use_container_width=True)
-    st.caption("Este gráfico apresenta a receita média mensal gerada a partir das transações com CBIOs.")
+    st.caption("Este gráfico apresenta o valor financeiro médio das transações com CBIOs, na agregação escolhida ao lado. " + fonte_b3)
 
