@@ -111,7 +111,8 @@ def update_mvc(file_path='data/raw/dados_mvc.xlsx'):
     issued_credtis = issued_credtis.stack().to_frame("Emitidos (data de emissão)")
     vintage_credits = vintage_credits.stack().to_frame("Emitidos (data de redução/remoção)")
 
-    credits = pd.concat([retired_credits,issued_credtis,vintage_credits],axis=1).replace(0,np.nan).dropna()
+    # drop only project-years without any credit; a zero in one series must not remove the other two
+    credits = pd.concat([retired_credits,issued_credtis,vintage_credits],axis=1).replace(0,np.nan).dropna(how="all")
    
     #save data
     credits.to_csv("data/processed/mvc_credits.csv",sep=";",decimal=",")
